@@ -159,13 +159,13 @@
 <h2 id="2-把你本地的blog部署到github上"><a href="#2-把你本地的blog部署到github上" class="headerlink" title="2. 把你本地的blog部署到github上"></a>2. 把你本地的blog部署到github上</h2><ul>
 <li>到github新建一个仓库，仓库名为：YourGithubUsername.github.io <strong>必须为这个名字</strong></li>
 <li><p>配置root目录下的_config.yml文件:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: git</div><div class="line">  repository: git@github.com:YourGithubUsername/YourGithubUsername.github.com.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: git</div><div class="line">  repository: git@github.com:YourGithubUsername/YourGithubUsername.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
 </li>
 <li><p>在cmd中执行命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt; hexo clean</div><div class="line">&gt; hexo generate</div><div class="line">&gt; hexo deploy</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>就会自动生成.deploy_git文件夹</p>
+<p>就会自动生成.deploy_git文件夹,并推送到github上。<br>也可以手动推送至github:</p>
 <ul>
 <li><p>在git中cd 进入这个.deploy_git文件夹</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 初次操作</div><div class="line">$ git remote add origin [your repo link] //http or ssh</div><div class="line">$ git push -u origin master </div><div class="line">// 之后推送</div><div class="line">$ git push origin master</div></pre></td></tr></table></figure>
