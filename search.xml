@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[c++单例模式singleton实现]]></title>
+      <url>/2017/04/30/c++%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8Fsingleton%E5%AE%9E%E7%8E%B0/</url>
+      <content type="html"><![CDATA[<h3 id="1-singleton-单例模式："><a href="#1-singleton-单例模式：" class="headerlink" title="1.singleton 单例模式："></a>1.singleton 单例模式：</h3><p>设计一个类，我们只能生成该类的一个实例。eg. <strong>地球</strong>就是一个singleton，据我们所知，宇宙中目前只有一个<strong>地球</strong>。</p>
+<h3 id="2-实现思路："><a href="#2-实现思路：" class="headerlink" title="2.实现思路："></a>2.实现思路：</h3><p>设一个static private变量：instance。每次要生成该类实例时都检查一下这个instance是否为nullptr：是的话就新建一个实例赋给该instance，否的话就直接返回这个实例。</p>
+<p><em>为什么instance需要是static的呢？</em></p>
+<p>因为instance应该是一个类变量，它需要被整个class共享，static关键字在上一篇<em>笔记</em>中讲过：它可以限制变量的作用域，static变量在类中就会变成类变量，整个类的实例都能访问。如果是实例变量的话，那么每个实例都将拥有分别拥有各自的instance，就无从判断该类是不是已经有一个实例了。<br>eg. 宇宙在创造地球的时候，为了让人类珍惜赖以生存的家园，它决定整个宇宙中只能有一个地球，但是它要创造的星球很多，常常忘记已经创造了哪个，还没创造哪个。所以为了保证只有一个地球，它把<strong>地球</strong>类设计成了单例模式，并且给了这个类一张白纸。有一天它决定要创造地球了，于是就先让地球出示了那张纸，它发现：那张纸是空白的，这说明地球还没有被创造过，所以它就选好了一个位置（内存），并把这个位置记在了白纸上，然后它在这个位置上创造了地球。一个月后，忙碌的宇宙又想起了创造地球这件事，但是它不确定自己是否已经创造过地球了，于是它找到<em>地球</em>类，让它出示那张纸，发现那张纸上已经有一个地址了！地球类对宇宙说：“我已经有一个实例了，它就在这个纸上写的位置上，不信你去瞧瞧！”宇宙按照地址找到了地球，发现它就在那里，于是宇宙就决定进行下一步：改善地球环境。这当然都是后话了。   </p>
+<p><em>为什么instance需要是private的呢？</em></p>
+<p>因为如果instance是public的，那么任意一个该类的实例都可以修改它的值，比如：创建完一个实例之后，编程人员不小心把instance又置为了nullptr,那么下次就还能够创建新的实例，这是不符合单例模式宗旨的。</p>
+<h3 id="3-实现代码："><a href="#3-实现代码：" class="headerlink" title="3.实现代码："></a>3.实现代码：</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span>&#123;</span></div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="keyword">static</span> Singleton* instance;</div><div class="line">    <span class="keyword">int</span> no=<span class="number">0</span>;</div><div class="line">    Singleton()&#123;no++; <span class="built_in">cout</span>&lt;&lt;<span class="string">"Construct!"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;</div><div class="line">    ~Singleton()&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"Delete!"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="function"><span class="keyword">static</span> Singleton* <span class="title">getInstance</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(instance == <span class="literal">nullptr</span>)&#123;</div><div class="line">            instance = <span class="keyword">new</span> Singleton();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> instance;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span></span>&#123;<span class="built_in">cout</span>&lt;&lt;no&lt;&lt;<span class="built_in">endl</span>;&#125;</div><div class="line">&#125;;</div><div class="line"><span class="comment">// 初始化instance</span></div><div class="line">Singleton* Singleton::instance = <span class="literal">nullptr</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    Singleton* single1 = Singleton::getInstance();</div><div class="line">    Singleton* single2 = Singleton::getInstance();</div><div class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"single1 addr:"</span>&lt;&lt;single1&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">"single2 addr:"</span>&lt;&lt;single2&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">    <span class="keyword">if</span>(single1 == single2)&#123;</div><div class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"same"</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">    &#125;</div><div class="line">    single1-&gt;Print();</div><div class="line">    single2-&gt;Print();</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果图：<br><img src="/images/cpp/singleton_rst.PNG" alt="运行结果图"><br>我说说我有疑问的的几点：   </p>
+<ol>
+<li>instance变量为什么是Singleton*类型，不能是Singleton或者Singleton&amp;类型？<br>答：如果是Singleton类型：那就是递归结构了，自身包含自身，没法做到只有一个实例；<br> 如果是Singleton&amp;引用类型，对于引用类型的成员, 只能通过初始化表达式进行初始化。Singleton(Singleton &amp;s):instance(s) { },这还是递归结构嘛，先有鸡还是先有蛋的问题。</li>
+<li>instance变量如何初始化呢？<br>答：在类的外面，初始化为nullptr。不能在里面初始化，否则zongshinullptr，总能创建新的实例。</li>
+<li>构造函数和析构函数为什么是private的？<br> 答：构造函数是private：构造函数就是生成实例的，如果public则其他实例可以被任意生成；<br>析构函数在实例被销毁时自动调用，析构函数只能有一个, 不能被重载。析构函数可以被显式的调用, 以释放对象中动态申请的内存。如果析构函数是public,则实例将能够被随意销毁，instance变量如果没有了，下次就不能够再生成了。</li>
+<li>为什么~Singleton()析构函数没有被调用，而构造函数被调用了？<br> 答：因为new Singleton()所以构造函数被调用了，以instance地址为起点，开辟了一块空间，给instance变量进行了初始化；<br>因为该实例存在于静态存储区，static的变量要程序关闭才会释放。</li>
+<li>如何验证这个类真的只有一个实例？<br>答：在本例中，==用来判断两个指针是否相同，即判断两个实例是否在同一个地址。</li>
+</ol>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> tech </tag>
+            
+            <tag> cpp </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[如何安装Mongodb？]]></title>
+      <url>/2017/04/30/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85Mongodb%EF%BC%9F/</url>
+      <content type="html"><![CDATA[<p>本文记录了在我的PC上安装Mongodb的过程，以备忘。<br>参考：<a href="http://www.runoob.com/mongodb/mongodb-window-install.html" target="_blank" rel="external">菜鸟教程-Mongodb</a></p>
+<h3 id="1-下载：Mongodb-community-选择适合自己操作系统的版本。"><a href="#1-下载：Mongodb-community-选择适合自己操作系统的版本。" class="headerlink" title="1. 下载：Mongodb community 选择适合自己操作系统的版本。"></a>1. 下载：<a href="https://www.mongodb.com/download-center#community" target="_blank" rel="external">Mongodb community</a> 选择适合自己操作系统的版本。</h3><h3 id="2-安装Mongodb："><a href="#2-安装Mongodb：" class="headerlink" title="2. 安装Mongodb："></a>2. 安装Mongodb：</h3><ol>
+<li>安装Mongodb的安装文件，可以选择complete默认安装，也可选择custom自己指定安装的路径和功能。  </li>
+<li><p>创建数据目录：我要把数据库的数据目录放在D:盘</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt; d:</div><div class="line">&gt; <span class="built_in">cd</span> \your-path-to\Mongodb</div><div class="line">&gt; mkdir db <span class="comment"># 新建一个db文件夹</span></div><div class="line">&gt; mkdir <span class="built_in">log</span> <span class="comment"># 新建一个log文件夹</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>添加环境变量：在Path环境变量中添加Mongodb安装好的bin路径，就能从命令行直接启动Mongodb而无需切换到安装目录下了。</p>
+</li>
+<li>设置安全认证登陆：<br>Mongodb默认没有密码，但是为了保证数据的安全性，我们给数据库开启安全性认证。大致流程是这样的：   <ul>
+<li>以无认证方式启动mongodb server</li>
+<li>client连接上去，创建一个usr-admin(管理用户的用户)</li>
+<li>以认证方式启动mongodb server</li>
+<li>client以usr-admin身份登陆，再创建一个普通用户amy(只对test数据库有操作权限)</li>
+<li>使用amy登陆，向test数据库中插入数据。   </li>
+</ul>
+</li>
+<li><p>创建用户：<br> 以管理员权限打开cmd。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt; mongod --dbpath <span class="string">"\your-path-to\Mongodb\db"</span> --logpath    </div><div class="line"><span class="string">"\your-path-to\Mongodb\log\Mongodb.log"</span>   </div><div class="line"><span class="comment"># 以不认证方式启动Mongodb服务，log写在log文件夹下的Mogodb.log文件里，这样控制台窗    </span></div><div class="line"><span class="comment"># 口就不会输出一大堆信息，整个世界都清静了。</span></div></pre></td></tr></table></figure>
+<p> <em>创建用户:</em><br> 设置了认证，需要有用户才可以登陆。我们这一步创建两个用户：usr-admin和amy。<br> usr-admin是管理员，amy是普通用户。<br><strong>5.1 创建usr-admin用户：</strong><br> 打开一个新的cmd窗口：       </p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 启动一个client，会连接上刚才启动的server服务。  </span></div><div class="line">&gt; mongo</div></pre></td></tr></table></figure>
+<p> <img src="/images/Mongodb/1-connected.PNG" alt="连接成功！" title="client链接server"><br> Mongodb 3.0以后把addUser()函数改成了<a href="https://docs.mongodb.com/manual/reference/method/db.createUser/#create-administrative-user-with-roles" target="_blank" rel="external">createUser()</a>   </p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; use admin</div><div class="line">&gt; db.createUser(&#123;</div><div class="line">	user:<span class="string">"usr-admin"</span>,</div><div class="line">	<span class="built_in">pwd</span>:<span class="string">"password"</span>,</div><div class="line">	roles: [&#123;</div><div class="line">		role:<span class="string">"userAdminAnyDatabase"</span>,</div><div class="line">		db: <span class="string">"admin"</span></div><div class="line">	&#125;]</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p> role（角色）就是权限的集合。在这里，我们赋予了usr-admin用户对于admin数据库 “userAdminAnyDatabase”的权限。<br><strong>5.2 创建普通用户：</strong> </p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 以认证方式启动mongdb server:</span></div><div class="line">&gt; mongod --dbpath <span class="string">"D:\0-softwares\coding\Mongodb\db"</span> --logpath <span class="string">"D:\0-softwares\coding\Mongodb\log\Mongodb.log"</span> --auth</div><div class="line"><span class="comment"># 新开一个cmd启动client</span></div><div class="line">&gt; use admin <span class="comment"># 切换到admin数据库下</span></div><div class="line">&gt; db.auth(<span class="string">'usr-admin'</span>,<span class="string">'password'</span>) <span class="comment"># 以usr-admin身份登陆</span></div><div class="line"><span class="comment"># 从test数据库创建用户amy</span></div><div class="line">&gt; use <span class="built_in">test</span></div><div class="line">&gt; db.createUser(&#123; </div><div class="line">	user:<span class="string">"amy"</span>,</div><div class="line">	<span class="built_in">pwd</span>:<span class="string">"password"</span>,</div><div class="line">	roles: [</div><div class="line">		&#123;role:<span class="string">"readWrite"</span>,db: <span class="string">"test"</span>&#125;,</div><div class="line">		&#123;role:<span class="string">"dbOwner"</span>,db:<span class="string">"test"</span>&#125;</div><div class="line">	]</div><div class="line">&#125;)</div><div class="line">&gt; show users</div><div class="line">&gt; db.auth(<span class="string">'amy'</span>,<span class="string">'password'</span>)</div><div class="line">&gt; db.test.insert(&#123;<span class="string">'hello'</span>:<span class="string">'amy'</span>&#125;)</div><div class="line">&gt; db.tets.find()</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="3-总结："><a href="#3-总结：" class="headerlink" title="3. 总结："></a>3. 总结：</h3><ul>
+<li>建议使用认证登陆，这样能够保证数据库的安全；</li>
+<li>用户登陆应当从创建该用户的数据库开始：use the-database；</li>
+<li>usr-admin用户可以创建其他用户；</li>
+<li>可以删除用户：db.dropUser(‘usrname’)</li>
+<li>删除数据库：<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; use dbname   </div><div class="line">&gt; db.dropDatabase()</div></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> tech </tag>
+            
+            <tag> Mongodb </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[codeblocks 16.01 中使用C++的nullptr]]></title>
+      <url>/2017/04/25/codeblocks%E4%B8%ADnullptr%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+      <content type="html"><![CDATA[<h2 id="1-nullptr头文件"><a href="#1-nullptr头文件" class="headerlink" title="1.  nullptr头文件:"></a>1.  nullptr头文件:</h2><p>std::nullptr_t定义在标准头文件<span style="color:lightblue"><cstddef></cstddef></span>中。但实际上在源程序中不包含该头文件仍可以正常使用nullptr_t类型与nullptr对象。 </p>
+<h2 id="2-nullptr的简介："><a href="#2-nullptr的简介：" class="headerlink" title="2.  nullptr的简介："></a>2.  nullptr的简介：</h2><h4 id="转自wikipedia"><a href="#转自wikipedia" class="headerlink" title="[转自wikipedia]"></a>[转自wikipedia]</h4><p>nullptr是c++11语言标准用来表示<span style="color:green">空指针</span>的常量值。<br>在C语言中，空指针的值表示为#define NULL (void <em>)0。<br>在C++语言中，由于对语法的类型检查更为严格，因而空指针的值就不能表示为(void </em>)0;。例如，空指针的值表示为FILE <em>fp=(void </em>)0;编译报错。所以至少自C++98开始#define NULL 0，但这会在函数重载时遇到新的困难。eg.   </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">char</span> c, <span class="keyword">void</span> *p)</span></span>;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">(<span class="keyword">char</span> c, <span class="keyword">int</span> i)</span></span>;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    foo(<span class="string">'x'</span>,<span class="literal">NULL</span>);<span class="comment">//匹配哪个版本的foo()？</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>C++11开始，定义了空指针的常值为nullptr，解决了上述函数重载问题。<br>在没有C++11的nullptr时，可以自己实现一个：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="class"><span class="keyword">class</span> <span class="title">nullptr_t</span>&#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></div><div class="line">    <span class="title">inline</span> <span class="title">operator</span> <span class="title">T</span>*() <span class="title">const</span> &#123; <span class="keyword">return</span> <span class="number">0</span>; &#125; </div><div class="line">    <span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">C</span>, <span class="title">class</span> <span class="title">T</span>&gt;</span></div><div class="line">    <span class="title">inline</span> <span class="title">operator</span> <span class="title">T</span> <span class="title">C</span>::*() <span class="keyword">const</span> &#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</div><div class="line"> </div><div class="line"><span class="keyword">private</span>:</div><div class="line">    <span class="keyword">void</span> <span class="keyword">operator</span>&amp;() <span class="keyword">const</span>;</div><div class="line">&#125; </div><div class="line"><span class="literal">nullptr</span> = &#123;&#125;;</div></pre></td></tr></table></figure>
+<h2 id="3-设置codeblocks支持nullptr"><a href="#3-设置codeblocks支持nullptr" class="headerlink" title="3.  设置codeblocks支持nullptr:"></a>3.  设置codeblocks支持nullptr:</h2><p>如果程序中包含nullptr，且编译时报错<br><span style="color:red">error: ‘nullptr’ was not declared in this scope<br></span><br>那么，你的编译器可能使用的还是较早版本的c++语言标准。要让它支持nullptr,可以进行如下设置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Settings</div><div class="line">  -Compiler</div><div class="line">    -Compiler Settings</div><div class="line">    -Compiler Flags</div><div class="line">        -General:</div><div class="line">          勾上：Have g++ follow the c++11 ISO c++ language standard</div><div class="line">          ok</div></pre></td></tr></table></figure></p>
+<p>注意：我的codeblocks版本是：16.01</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> tech </tag>
+            
+            <tag> cpp </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[static变量在c++中的使用]]></title>
+      <url>/2017/04/24/static%E5%8F%98%E9%87%8F%E5%9C%A8c-%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+      <content type="html"><![CDATA[<p>今天学习c++ singleton（单例模式）的实现时，发现static关键字扮演者至关重要的角色，趁此机会总结一下：<br><a href="#intro">1.static简介</a><br><a href="#func">2.static作用</a><br><a href="#diff">3.static局部变量和static全局变量的区别</a><br><a href="#example">4.示例</a> </p>
+<h3 id="intro">1. static 简介</h3> 
+
+<p><strong>变量其实只不过是程序可操作的存储区的名称。</strong> C++ 中每个变量都有指定的类型，类型决定了变量存储的大小和布局，该范围内的值都可以存储在内存中，运算符可应用于变量上。<br>变量的存储区分类：   </p>
+<ol>
+<li>栈：临时变量。由编译器决定何时分配，不需要的时候自动清除的内存。</li>
+<li>堆：由 new 分配的内存块。由编程人员指定何时分配，并要delete显式释放。堆可以动态地扩展和收缩。</li>
+<li>常量存储区：里面存放的是常量，不允许修改。</li>
+<li>静态存储区：全局变量，静态变量。</li>
+</ol>
+<h3 id="func">2. static 作用</h3>
+
+<p><em>static</em>的作用主要有3点：</p>
+<ol>
+<li>隐藏：加了static变量作用域会限制在该变量所处的.c,.cpp文件中，其他.c,.cpp文件无法访问到它。</li>
+<li>变量的持久化：静态数据区的变量会在程序刚开始运行时，就完成唯一一次初始化。</li>
+<li>默认初始化为0：出生在静态存储区的变量（static,global）,会自动初始化为0x00。tips:将变量弄成全局的可以省去初始化为0的工序。</li>
+</ol>
+<h3 id="diff">3. static局部变量和static全局变量的区别</h3><br>主要区别在于“隐藏”这一点：<br>加了static变量作用域会限制在该变量所处的.c,.cpp文件中，其他.c,.cpp文件无法访问到它。<br>而未加static的全局变量可以在其他文件中访问到。<br><br><h3 id="example">4. static变量使用示例</h3>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">staticLocalVar</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">static</span> <span class="keyword">int</span> local_var = <span class="number">9</span>; <span class="comment">// 静态局部变量</span></div><div class="line">    local_var++;</div><div class="line">    <span class="keyword">return</span> local_var;</div><div class="line">&#125;</div><div class="line"><span class="keyword">static</span> <span class="keyword">int</span> global_var = <span class="number">0</span>;<span class="comment">// 静态全局变量</span></div><div class="line"><span class="keyword">int</span> iszero1; <span class="comment">// 静态存储区的变量会自动初始化为0</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">int</span> iszero2;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"global_var : local_var"</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">    <span class="keyword">for</span>(; global_var&lt;<span class="number">10</span>; global_var++)&#123;</div><div class="line">        <span class="built_in">cout</span>&lt;&lt;global_var&lt;&lt;<span class="string">" : "</span>&lt;&lt;staticLocalVar()&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> iszero3; <span class="comment">// 非静态存储区的变量会初始化为一个未知的值！！！</span></div><div class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"iszero1:"</span>&lt;&lt;iszero1&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"iszero2:"</span>&lt;&lt;iszero2&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"iszero3:"</span>&lt;&lt;iszero3&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：<br><img src="/images/cpp/static_rst.jpg" alt="运行结果图"></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> tech </tag>
+            
+            <tag> cpp </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Hexo 学习笔记]]></title>
+      <url>/2017/04/23/Hexo-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      <content type="html"><![CDATA[<h2 id="1-说说你的故事"><a href="#1-说说你的故事" class="headerlink" title="1. 说说你的故事"></a>1. 说说你的故事</h2><h3 id="为你的hexo-blog添加”about”详情页"><a href="#为你的hexo-blog添加”about”详情页" class="headerlink" title="为你的hexo blog添加”about”详情页"></a>为你的hexo blog添加”about”详情页</h3><ul>
+<li><p>新建一个 about 页面</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; hexo new page <span class="string">"about"</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>在blog的根目录下会自动生成一个about文件夹，把里面的about.md修改成你想写的信息。</p>
+</li>
+<li><p>简单修改配置文件: 在所用<strong>主题</strong>的_config.yml文件中，将nav中about前面的注释去掉。<br>例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">nav:</div><div class="line">    home: .</div><div class="line">    archive: archives</div><div class="line">    about: about</div></pre></td></tr></table></figure>
+</li>
+<li><p>刷新一下，即刻呈现！<br><img src="/images/hexo/hexo-about.jpg" alt="blog&#39;s about page"></p>
+</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="2-把你本地的blog部署到github上"><a href="#2-把你本地的blog部署到github上" class="headerlink" title="2. 把你本地的blog部署到github上"></a>2. 把你本地的blog部署到github上</h2><ul>
+<li>到github新建一个仓库，仓库名为：YourGithubUsername.github.io <strong>必须为这个名字</strong></li>
+<li><p>配置root目录下的_config.yml文件:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: git</div><div class="line">  repository: git@github.com:YourGithubUsername/YourGithubUsername.github.com.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
+</li>
+<li><p>在cmd中执行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt; hexo clean</div><div class="line">&gt; hexo generate</div><div class="line">&gt; hexo deploy</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>就会自动生成.deploy_git文件夹</p>
+<ul>
+<li><p>在git中cd 进入这个.deploy_git文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 初次操作</div><div class="line">$ git remote add origin [your repo link] //http or ssh</div><div class="line">$ git push -u origin master </div><div class="line">// 之后推送</div><div class="line">$ git push origin master</div></pre></td></tr></table></figure>
+</li>
+<li><p>打开浏览器，访问：<a href="https://yourgithubusername.github.io/" target="_blank" rel="external">https://yourgithubusername.github.io/</a><br>就可以看到你的博客啦！</p>
+</li>
+</ul>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> tech </tag>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Hello World]]></title>
+      <url>/2017/04/22/hello-world/</url>
+      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> tech </tag>
+            
+            <tag> living </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Secret(秘密)]]></title>
+      <url>/2017/04/22/I-love-u/</url>
+      <content type="html"><![CDATA[<p>I love you, it’s a fact.<br>2017/04/22</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> living </tag>
+            
+        </tags>
+        
+    </entry>
+    
+  
+  
+</search>
