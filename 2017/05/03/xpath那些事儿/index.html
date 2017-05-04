@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="MonkandMonkey">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="xpath那些事儿"/>
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="Amy"/>
+  <!--Type page-->
+  
+      <meta property="og:type" content="article" />
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>xpath那些事儿 - Amy</title>
+
+
+  <link rel="shortcut icon" href="/images/amy/bath.png">
+
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!----------------------------
+  https://github.com/GallenHu/hexo-theme-Daily
+
+ _____            _   _
+|  __ \          (_) | |
+| |  | |   __ _   _  | |  _   _
+| |  | |  / _` | | | | | | | | |
+| |__| | | (_| | | | | | | |_| |
+|_____/   \__,_| |_| |_|  \__, |
+                          __/ |
+                         |___/
+
+    --------------------------->
+
+</head>
+
+
+<body>
+
+  <!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="/images/amy/owl.jpg" alt="Amy" height="60">
+        
+      </a>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  Home
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  Archive
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  About
+                
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            xpath那些事儿
+            
+          </h1>
+          <p class="posted-on">
+          2017-05-03
+          </p>
+          <div class="tags-links">
+            
+              
+                <a href="/tags/tech/" rel="tag">
+                  tech
+                </a>
+              
+                <a href="/tags/xpath/" rel="tag">
+                  xpath
+                </a>
+              
+                <a href="/tags/spider/" rel="tag">
+                  spider
+                </a>
+              
+            
+          </div>
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>今天让我们来聊聊Xpath！Xpath在web爬虫中使用的非常频繁，它能够帮助我们方便地定位到网页中的某个（些）具体元素。<br>本文的主要目的是记录一些xpath的常用知识，捋一捋学习的的思路。   </p>
+<p><strong>提纲:</strong><br><a href="#intro">1.何为Xpath?</a><br><a href="#examples">2.通过例子学习：</a><br><a href="#selenium">3.selenium中使用find_element_by_xpath()定位元素：</a></p>
+<p></p><h3 id="intro">1. 何为Xpath?</h3><br>Xpath，从它的姓，我们可以知道它和XML有些关系。XML指可扩展标记语言（EXtensible Markup Language）<br>直观地感受一下XML语言表示出的文档的样子：<br><img src="/images/spider/XML_eg.PNG" alt="XML例子"><br><em><p align="left">图1-XML 示例</p> </em>   <p></p>
+<p>可以发现：XML文档层级清晰，父节点包着子节点。当我们要定位到其中的某一个节点时，可以从某个祖先节点开始，沿途经过某些节点到达目标节点，这就构成了一条路径，许许多多这样的路径生发出来，看起来就像一棵倒置的大树，根节点在上，叶子节点在下。</p>
+<p>Xpath就是这类路径的表示方法(路径表达式)。Xpath不仅适用于XML文档，html文档它也搞得定！   </p>
+<p></p><h3 id="examples">2. 通过例子学习： </h3>  <p></p>
+<ul>
+<li>Xpath的教程和参考手册：<a href="http://www.w3school.com.cn/xpath/xpath_syntax.asp" target="_blank" rel="external">W3C school–XPATH</a>里面包含了详细的语法知识和例子。   </li>
+<li>推荐Chrome的Xptah Helper扩展，会随当前网页自动加载，输入xpath会自动显示出定位的元素。</li>
+<li>如果想知道某个元素的xpath,可以使用chrome debugger的copy xpath功能，那里的xpath表达式简洁易懂。   </li>
+</ul>
+<p>下面展示了一些有用的例子，以后可能会用到。</p>
+<ol>
+<li><p>选取 class = ‘u ‘的 div:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos;]</div></pre></td></tr></table></figure>
+</li>
+<li><p>选取 table 元素的某个部分, 索引下标从1开始:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos;]/table/tbody/tr/td[2]</div></pre></td></tr></table></figure>
+</li>
+<li><p>选取 id = ‘login ‘的 div：id是唯一的；//表示可以不从根节点开始搜索，只要满足表达式即可；/表示从根结点开始搜索</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">//div[@id=&apos;login&apos;]</div></pre></td></tr></table></figure>
+</li>
+<li><p>选取 id = ‘login ‘的 元素,由于id是唯一的，所以也可以不指明div:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">//*[@id=&apos;login&apos;]</div></pre></td></tr></table></figure>
+</li>
+<li><p>当满足条件的元素有多个时，只选择最后一个:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos;]/div/span[last()]</div></pre></td></tr></table></figure>
+</li>
+<li><p>复合谓词 and：选取具有某个子元素的父节点div:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos; and ./div/span[@class=&apos;uu&apos;]]</div></pre></td></tr></table></figure>
+</li>
+<li><p>函数 not：排除具有某个子元素的父节点div, 轴：following-sibling，可以定义相对于当前结点的节点集合；./：以当前结点为根搜索</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos; and not(./div/span[@class=&apos;uu&apos;]) and following-sibling::div[@class=&apos;mm&apos;]]</div></pre></td></tr></table></figure>
+</li>
+<li><p>选取 文本内容包含”hello”的 span:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div/span[contains(text(),&apos;hello&apos;)]</div></pre></td></tr></table></figure>
+</li>
+<li><p>选取 文本内容以”hello”开头的 span:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div/span[starts-with(text(),&apos;hello&apos;)]</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p></p><h3 id="selenium">3. selenium中使用find_element_by_xpath()定位元素：</h3>  <p></p>
+<ol>
+<li><p>基本用法：   </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 获取div元素</span></div><div class="line">div_ele = driver.find_element_by_xpath(<span class="string">"/html/body/div[@class='ut']"</span>)</div><div class="line"><span class="comment"># 获取div中的文本</span></div><div class="line">div_content = div_ele.text</div></pre></td></tr></table></figure>
+</li>
+<li><p>text()函数无法使用   </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 试图获取某text()元素</span></div><div class="line">div_ele = driver.find_element_by_xpath(<span class="string">"/node/text()[2]"</span>)</div><div class="line"><span class="comment"># 注意！这样会报错，因为find_element_by_xpath()返回的必须是element类型，而不是str!</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>只能选择class属性为一个的情况：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">div_ele = driver.find_element_by_xpath(<span class="string">"/node/div[@class='u']"</span>)</div></pre></td></tr></table></figure>
+<p> 选择具有多个class属性的元素，可以用css selector:</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">'ok good nice'</span>&gt;</span></div></pre></td></tr></table></figure>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">div_ele = driver.find_element(By.CSS_SELECTOR, <span class="string">'li.ok.good.nice'</span>)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+
+        </div>
+      </article>
+    </div>
+    <!-- Comments -->
+    <div class="container">
+      
+
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+        <div class="nav-previous">
+          <a href="/2017/04/30/c++单例模式singleton实现/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> Older Posts</a>
+        </div>
+      
+      
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+<div class="footer-widgets">
+  <div class="row inside-wrapper">
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">Me</h1>
+        <div class="custom-widget-content">
+          
+          <ul><li>MonkandMonkey</li></ul>
+        </div>
+      </aside>
+    </div>
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">Contact</h1>
+        <div class="widget-text">
+          
+            
+              <a href="https://github.com/MonkandMonkey" class="icon icon-github" target="_blank">github</a>
+            
+              <a href="mailto:chenjing.amy@pku.edu.cn" class="icon icon-mail" target="_blank">mail</a>
+            
+          
+        </div>
+      </aside>
+    </div>
+    
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">Search</h1>
+        <div class="widget-text">
+          <form onSubmit="return appDaily.submitSearch('')">
+            <p>
+              <input type="text" placeholder="search..." id="homeSearchInput">
+            </p>
+             <!--<input type="submit" value="GO">-->
+          </form>
+        </div>
+      </aside>
+    </div> 
+  </div>
+</div>
+<!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>Amy &copy; 2017</span>
+    
+      <span class="split">|</span>
+      <span>Powered by MonkandMonkey</a></span>
+    
+  </p>
+</footer>
+
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+<script>
+  var disqus_shortname = 'monkandmonkey3';
+
+  
+  var disqus_url = 'http://localhost:4000/2017/05/03/xpath那些事儿/';
+  
+
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+
+
+</body>
+
+</html>
