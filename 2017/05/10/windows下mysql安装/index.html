@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="MonkandMonkey">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="windows下mysql安装"/>
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="Amy"/>
+  <!--Type page-->
+  
+      <meta property="og:type" content="article" />
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>windows下mysql安装 - Amy</title>
+
+
+  <link rel="shortcut icon" href="/images/amy/bath.png">
+
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!----------------------------
+  https://github.com/GallenHu/hexo-theme-Daily
+
+ _____            _   _
+|  __ \          (_) | |
+| |  | |   __ _   _  | |  _   _
+| |  | |  / _` | | | | | | | | |
+| |__| | | (_| | | | | | | |_| |
+|_____/   \__,_| |_| |_|  \__, |
+                          __/ |
+                         |___/
+
+    --------------------------->
+
+</head>
+
+
+<body>
+
+  <!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="/images/amy/owl.jpg" alt="Amy" height="60">
+        
+      </a>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  Home
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  Archive
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  About
+                
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            windows下mysql安装
+            
+          </h1>
+          <p class="posted-on">
+          2017-05-10
+          </p>
+          <div class="tags-links">
+            
+              
+                <a href="/tags/tech/" rel="tag">
+                  tech
+                </a>
+              
+                <a href="/tags/mysql/" rel="tag">
+                  mysql
+                </a>
+              
+            
+          </div>
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <ol>
+<li>下载 <a href="http://dev.mysql.com/downloads/mysql/" target="_blank" rel="external">MySQL Server 5.17.16 Community</a>版:<br> 选择os version (x64)<br> 下载下面的第一个ZIP文件</li>
+<li>解压到指定目录（无需安装，解压就行）  </li>
+<li>bin路径添加到<strong>Path</strong>环境变量</li>
+<li><p>在解压的根目录下，新建配置文件：my.ini   </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">[mysql]</div><div class="line"><span class="comment"># 设置mysql客户端默认字符集</span></div><div class="line">default-character-set=utf8</div><div class="line"> </div><div class="line">[mysqld]</div><div class="line"><span class="comment"># 设置3306端口</span></div><div class="line">port = 3306</div><div class="line"><span class="comment"># 设置mysql的安装目录</span></div><div class="line">basedir=path-to\MySQL\install</div><div class="line"><span class="comment"># 设置mysql数据库的数据的存放目录</span></div><div class="line">datadir=path-to\MySQL\install\sqldata</div><div class="line"><span class="comment"># 允许最大连接数</span></div><div class="line">max_connections=50</div><div class="line"><span class="comment"># 服务端使用的字符集默认为8比特编码的latin1字符集</span></div><div class="line">character-set-server=utf8</div><div class="line"><span class="comment"># 创建新表时将使用的默认存储引擎</span></div><div class="line">default-storage-engine=INNODB</div></pre></td></tr></table></figure>
+</li>
+<li><p>管理员打开cmd，cd 到MySQL的bin目录下：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; mysqld install</div></pre></td></tr></table></figure>
+<p> 安装mysql服务成功！</p>
+</li>
+<li><p>启动mysqld服务:  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; net start mysql</div><div class="line">``` </div><div class="line">发现失败：需要手动初始化data目录：</div><div class="line">```bash</div><div class="line">&gt; mysqld --initialize-insecure</div></pre></td></tr></table></figure>
+<p> 再次运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; net start mysql</div></pre></td></tr></table></figure>
+<p> 成功！</p>
+</li>
+<li><p>创建用户，设置密码:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt; mysql -uroot <span class="comment"># root 登陆</span></div><div class="line"><span class="comment"># 创建用户amy，设置密码，授权</span></div><div class="line">&gt; create user <span class="string">'amy'</span>@<span class="string">'localhost'</span> identified by <span class="string">'pwd'</span>;</div><div class="line">&gt; grant all privileges on *.* to amy@<span class="string">'localhost'</span>;</div><div class="line">&gt; <span class="built_in">exit</span> <span class="comment"># 退出当前登陆</span></div><div class="line">&gt; mysql -uamy -p</div><div class="line">&gt; your_pwd <span class="comment"># 输入刚刚为amys设置的密码</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>执行sql语句:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; show databases;</div></pre></td></tr></table></figure>
+<p> 可以看到系统默认的数据库。</p>
+</li>
+</ol>
+
+        </div>
+      </article>
+    </div>
+    <!-- Comments -->
+    <div class="container">
+      
+
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+        <div class="nav-previous">
+          <a href="/2017/05/09/matplotlib绘图笔记/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> Older Posts</a>
+        </div>
+      
+      
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+<div class="footer-widgets">
+  <div class="row inside-wrapper">
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">Me</h1>
+        <div class="custom-widget-content">
+          
+          <ul><li>MonkandMonkey</li></ul>
+        </div>
+      </aside>
+    </div>
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">Contact</h1>
+        <div class="widget-text">
+          
+            
+              <a href="https://github.com/MonkandMonkey" class="icon icon-github" target="_blank">github</a>
+            
+              <a href="mailto:chenjing.amy@pku.edu.cn" class="icon icon-mail" target="_blank">mail</a>
+            
+          
+        </div>
+      </aside>
+    </div>
+    
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">Search</h1>
+        <div class="widget-text">
+          <form onSubmit="return appDaily.submitSearch('')">
+            <p>
+              <input type="text" placeholder="search..." id="homeSearchInput">
+            </p>
+             <!--<input type="submit" value="GO">-->
+          </form>
+        </div>
+      </aside>
+    </div> 
+  </div>
+</div>
+<!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>Amy &copy; 2017</span>
+    
+      <span class="split">|</span>
+      <span>Powered by MonkandMonkey</a></span>
+    
+  </p>
+</footer>
+
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+<script>
+  var disqus_shortname = 'monkandmonkey3';
+
+  
+  var disqus_url = 'http://localhost:4000/2017/05/10/windows下mysql安装/';
+  
+
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+
+
+</body>
+
+</html>

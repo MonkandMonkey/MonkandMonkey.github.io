@@ -3,6 +3,47 @@
   
     
     <entry>
+      <title><![CDATA[windows下mysql安装]]></title>
+      <url>/2017/05/10/windows%E4%B8%8Bmysql%E5%AE%89%E8%A3%85/</url>
+      <content type="html"><![CDATA[<ol>
+<li>下载 <a href="http://dev.mysql.com/downloads/mysql/" target="_blank" rel="external">MySQL Server 5.17.16 Community</a>版:<br> 选择os version (x64)<br> 下载下面的第一个ZIP文件</li>
+<li>解压到指定目录（无需安装，解压就行）  </li>
+<li>bin路径添加到<strong>Path</strong>环境变量</li>
+<li><p>在解压的根目录下，新建配置文件：my.ini   </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">[mysql]</div><div class="line"><span class="comment"># 设置mysql客户端默认字符集</span></div><div class="line">default-character-set=utf8</div><div class="line"> </div><div class="line">[mysqld]</div><div class="line"><span class="comment"># 设置3306端口</span></div><div class="line">port = 3306</div><div class="line"><span class="comment"># 设置mysql的安装目录</span></div><div class="line">basedir=path-to\MySQL\install</div><div class="line"><span class="comment"># 设置mysql数据库的数据的存放目录</span></div><div class="line">datadir=path-to\MySQL\install\sqldata</div><div class="line"><span class="comment"># 允许最大连接数</span></div><div class="line">max_connections=50</div><div class="line"><span class="comment"># 服务端使用的字符集默认为8比特编码的latin1字符集</span></div><div class="line">character-set-server=utf8</div><div class="line"><span class="comment"># 创建新表时将使用的默认存储引擎</span></div><div class="line">default-storage-engine=INNODB</div></pre></td></tr></table></figure>
+</li>
+<li><p>管理员打开cmd，cd 到MySQL的bin目录下：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; mysqld install</div></pre></td></tr></table></figure>
+<p> 安装mysql服务成功！</p>
+</li>
+<li><p>启动mysqld服务:  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; net start mysql</div><div class="line">``` </div><div class="line">发现失败：需要手动初始化data目录：</div><div class="line">```bash</div><div class="line">&gt; mysqld --initialize-insecure</div></pre></td></tr></table></figure>
+<p> 再次运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; net start mysql</div></pre></td></tr></table></figure>
+<p> 成功！</p>
+</li>
+<li><p>创建用户，设置密码:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt; mysql -uroot <span class="comment"># root 登陆</span></div><div class="line"><span class="comment"># 创建用户amy，设置密码，授权</span></div><div class="line">&gt; create user <span class="string">'amy'</span>@<span class="string">'localhost'</span> identified by <span class="string">'pwd'</span>;</div><div class="line">&gt; grant all privileges on *.* to amy@<span class="string">'localhost'</span>;</div><div class="line">&gt; <span class="built_in">exit</span> <span class="comment"># 退出当前登陆</span></div><div class="line">&gt; mysql -uamy -p</div><div class="line">&gt; your_pwd <span class="comment"># 输入刚刚为amys设置的密码</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>执行sql语句:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; show databases;</div></pre></td></tr></table></figure>
+<p> 可以看到系统默认的数据库。</p>
+</li>
+</ol>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> tech </tag>
+            
+            <tag> mysql </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[matplotlib绘图笔记]]></title>
       <url>/2017/05/09/matplotlib%E7%BB%98%E5%9B%BE%E7%AC%94%E8%AE%B0/</url>
       <content type="html"><![CDATA[<p>本篇记录使用matplotlib进行简单的数据可视化。</p>
