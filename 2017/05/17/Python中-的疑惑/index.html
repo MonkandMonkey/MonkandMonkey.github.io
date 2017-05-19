@@ -16,7 +16,7 @@
 
   <!--Open Graph Title-->
   
-      <meta property="og:title" content="Amy"/>
+      <meta property="og:title" content="Python中_的疑惑"/>
   
   <!--Open Graph Description-->
   
@@ -24,7 +24,7 @@
   <meta property="og:site_name" content="Amy"/>
   <!--Type page-->
   
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content="article" />
   
   <!--Page Cover-->
   
@@ -33,7 +33,7 @@
 
   <!-- Title -->
   
-  <title>arg - Amy</title>
+  <title>Python中_的疑惑 - Amy</title>
 
 
   <link rel="shortcut icon" href="/images/amy/bath.png">
@@ -113,37 +113,83 @@
 
 
   <!-- Main Content -->
-  
-
-<!-- Main Content -->
-<div class="archive content-area">
-  <div class="container">
-    <h1 class="entry-title">#arg</h1>
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <!-- Use lodash to classify posts. See https://lodash.com/docs#groupBy -->
-        
-        
-          <h2 class="year">2017</h2>
-          <ul class="list">
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            Python中_的疑惑
             
-  <li>
-    <span class="date">
-      2017-05-07
-    </span>
-    <a href="/2017/05/07/使用python argparse 编写友好的命令行接口/" class="title">
-      使用 python argparse: 编写友好的命令行接口
-    </a>
-  </li>
+          </h1>
+          <p class="posted-on">
+          2017-05-17
+          </p>
+          <div class="tags-links">
+            
+              
+                <a href="/tags/tech/" rel="tag">
+                  tech
+                </a>
+              
+                <a href="/tags/python/" rel="tag">
+                  python
+                </a>
+              
+            
+          </div>
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>在Tensorflow tutorial：RNN教程的示例代码中，发现了”_”的使用：   </p>
+<p><img src="/images/python/useof_1.PNG" alt="tensorflow example which uses &#39;_&#39;"></p>
+<p>经过查阅，将其身世简单记录如下：<br>在Python中，变量的命名规则是：变量名必须是大小写英文、数字和<em>的组合，且不能用数字开头，所以a single </em> 是可以作为变量名的，虽然看起来怪怪的。<br><em>的一个常见用途是：充当一个占位符，有时候，某个位置必须要写一个变量，但是这个变量后面又不会用到，这时候会使用\</em>当变量名，又叫throwaway variable。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">n = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> tbh.bag.atom_set():</div><div class="line">	n += <span class="number">1</span></div></pre></td></tr></table></figure></p>
+<p>又如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">label, has_label, _ = text.partition(<span class="string">':'</span>)</div></pre></td></tr></table></figure></p>
 
-
-          </ul>
-        
-      </div>
+        </div>
+      </article>
     </div>
+    <!-- Comments -->
+    <div class="container">
+      
+<section id="comment">
+  <!-- <h1 class="title">Comments</h1> -->
+
+  
+  <div id="disqus_thread">
+    <script type="text/javascript">
+    var disqus_config = function () {
+          this.page.url = window.location.href;
+          this.page.identifier = 'post-Python中-的疑惑';
+          this.page.title = 'Python中_的疑惑';
+      };
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
   
+</section>
 
+
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+        <div class="nav-previous">
+          <a href="/2017/05/10/windows下mysql安装/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> Older Posts</a>
+        </div>
+      
+      
+        <div class="nav-next">
+          <a href="/2017/05/19/Tensorflow-Get-Started/" rel="prev">Newer Posts <span class="meta-arraw meta-arraw-right"></span></a>
+        </div>
+      
+    </div>
+
+  </div>
 </div>
 
 
@@ -210,12 +256,14 @@
   var disqus_shortname = 'monkandmonkey3';
 
   
+  var disqus_url = 'http://localhost:4000/2017/05/17/Python中-的疑惑/';
+  
 
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->

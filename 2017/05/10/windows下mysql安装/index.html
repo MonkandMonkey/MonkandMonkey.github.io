@@ -3,7 +3,7 @@
 
 <!-- Head tag -->
 <head>
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <!--Description-->
@@ -53,14 +53,14 @@
                           __/ |
                          |___/
 
-    --------------------------->
+    ---------------------------><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </head>
 
 
 <body>
 
-  <!-- Nav -->
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
   <header class="site-header">
   <div class="header-inside">
     <div class="logo">
@@ -161,7 +161,7 @@
 <p> 成功！</p>
 </li>
 <li><p>创建用户，设置密码:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt; mysql -uroot <span class="comment"># root 登陆</span></div><div class="line"><span class="comment"># 创建用户amy，设置密码，授权</span></div><div class="line">&gt; create user <span class="string">'amy'</span>@<span class="string">'localhost'</span> identified by <span class="string">'pwd'</span>;</div><div class="line">&gt; grant all privileges on *.* to amy@<span class="string">'localhost'</span>;</div><div class="line">&gt; <span class="built_in">exit</span> <span class="comment"># 退出当前登陆</span></div><div class="line">&gt; mysql -uamy -p</div><div class="line">&gt; your_pwd <span class="comment"># 输入刚刚为amys设置的密码</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt; mysql -u root <span class="comment"># root 登陆</span></div><div class="line"><span class="comment"># 创建用户amy，设置密码，授权</span></div><div class="line">&gt; create user <span class="string">'amy'</span>@<span class="string">'localhost'</span> identified by <span class="string">'pwd'</span>;</div><div class="line">&gt; grant all privileges on *.* to amy@<span class="string">'localhost'</span>;</div><div class="line">&gt; <span class="built_in">exit</span> <span class="comment"># 退出当前登陆</span></div><div class="line">&gt; mysql -u amy -p</div><div class="line">&gt; your_pwd <span class="comment"># 输入刚刚为用户amy设置的密码</span></div></pre></td></tr></table></figure>
 </li>
 <li><p>执行sql语句:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; show databases;</div></pre></td></tr></table></figure>
@@ -186,6 +186,10 @@
           <a href="/2017/05/09/matplotlib绘图笔记/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> Older Posts</a>
         </div>
       
+      
+        <div class="nav-next">
+          <a href="/2017/05/17/Python中-的疑惑/" rel="prev">Newer Posts <span class="meta-arraw meta-arraw-right"></span></a>
+        </div>
       
     </div>
 
@@ -266,7 +270,7 @@
     dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
