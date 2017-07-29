@@ -3,6 +3,104 @@
   
     
     <entry>
+      <title><![CDATA[#4.排列与组合]]></title>
+      <url>/2017/06/21/4-%E6%8E%92%E5%88%97%E4%B8%8E%E7%BB%84%E5%90%88/</url>
+      <content type="html"><![CDATA[<hr>
+<p>排列组合是高中数学里我们学过的知识，不过那时候我们计算的是满足某一条件的排列组合的总数，也就是说，我们求的是一个数值。而今天的问题是：通过完成一个程序，列出某个排列组合的所有可能情况。</p>
+<p><strong>问题：</strong></p>
+<ol>
+<li>如何生成$n$个数中选择$k$个数的所有组合$C_n^k$ ?</li>
+<li>如何生成$n$个数中选择$k$个数的所有排列$A_n^k$ ?</li>
+<li>如何生成由$n$个数字组成的所有$k$位数 ?</li>
+</ol>
+<hr>
+<p>问题1：<br>
+组合$C_n^k$，数字的顺序无关，即：相同的数字以不同的顺序出现会被视为一种情况。我们在列举每一种情况时，可以逐位列举。e.g.<br>
+列出$C_5^3$的所有可能，我们可以这样做:<br>
+从数组 <strong>[1,2,3,4,5]</strong> 中每次挑选出 <strong>3</strong> 个不同的数字来，且不关注这些数字的顺序。</p>
+<p>——  ——  ——<br>
+[1]　[2]　[3]</p>
+<p>1). 位置[1]上可以选择：1,2,3,4,5，但是我们仔细想想就会发现：对于组合问题，为了不重复统计，我们通常让数字按照从小到大的顺序排列，即我们通常使用：3,4,5 而非5,4,3。所以如果5个里取3个的话位置[1]上最大就是3，因为还要留两个数填在位置[2],和位置[3]上。<br>
+2). 假设我们在位置[1]上填了2,接着我们来填位置[2],此时，我们发现，剩下的能够供我们选择的数字变成了[3,4,5]，因为默认按照从小到大排列。在填位置[2]时，我们的方法和填位置[1]是一样的，唯一的不同是可供选择的数少了一些。这里可以用递归进行处理。<br>
+3). 我们用同样的方法也填出了位置[3]上的数据。现在我们可以输出当前组合，eg.2,3,5。<br>
+4). 接下来需要找到下一种组合：在填位置</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> tech </tag>
+            
+            <tag> cpp </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[月光与晚霞]]></title>
+      <url>/2017/06/09/%E6%9C%88%E5%85%89%E4%B8%8E%E6%99%9A%E9%9C%9E/</url>
+      <content type="html"><![CDATA[<p><img src="/images/photo/moon.jpg" alt="夜空中纯粹的月亮"><br>
+&lt;p align = &quot;center&quot;&gt;夜空中纯粹的月亮&lt;/p&gt;
+<img src="/images/photo/cloud1.jpg" alt="风卷残云"><br>
+&lt;p align = &quot;center&quot;&gt;风卷残云&lt;/p&gt;
+<img src="/images/photo/cloud2.jpg" alt="残云"><br>
+&lt;p align = &quot;center&quot;&gt;残云&lt;/p&gt;
+<img src="/images/photo/cloud3.jpg" alt="残云"><br>
+&lt;p align = &quot;center&quot;&gt;残云&lt;/p&gt;
+<img src="/images/photo/lake.jpg" alt="黄昏之湖"><br>
+&lt;p align = &quot;center&quot;&gt;黄昏之湖&lt;/p&gt;
+<img src="/images/photo/wanxia.jpg" alt="晚霞"><br>
+&lt;p align = &quot;center&quot;&gt;晚霞&lt;/p&gt;</p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> living </tag>
+            
+            <tag> photo </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[#3.二叉查找树]]></title>
+      <url>/2017/06/09/3-%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91/</url>
+      <content type="html"><![CDATA[<hr>
+<p><strong>要求：</strong></p>
+<p>给定一个（无序）数组，创建一棵基本的二叉查找树。</p>
+<hr>
+<p><strong>考虑：</strong></p>
+<p>1 . 什么是<em>二叉查找树</em><br>
+2 . 空数组</p>
+<hr>
+<p><strong>知识点：</strong></p>
+<p>1 . <strong>二叉查找树：</strong>  在数值上： 左孩子&lt;根&lt;右孩子。<br>
+2 . <strong>中序遍历：</strong> 先访问左子树，再访问根节点，最后访问右子树。对于每棵子树，也采用此顺序访问。中序遍历一棵二叉查找树，就能得到一个<em>非递减</em>的数列。</p>
+<hr>
+<p><strong>思路：</strong><br>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// add node to a binary tree with root</span></div><div class="line">add_node(root)&#123;</div><div class="line"><span class="keyword">for</span> each element in ary:   </div><div class="line">    <span class="keyword">if</span> root is null:</div><div class="line">        make it the root node</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">if</span> ele's val &gt; root:</div><div class="line">            add_node(root-&gt;right)</div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span> ele's val &lt; root:</div><div class="line">            add_node(root-&gt;left)</div><div class="line">        <span class="keyword">else</span>: <span class="comment">// not create a new node</span></div><div class="line">            root's num ++</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<p><strong>代码：</strong><br>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">* Prob: Construct a binary seach tree</div><div class="line">* Idea: left &lt; root &lt; right, mid order traverse.</div><div class="line">* Time: O(nlogn)</div><div class="line">* Space:O(n)</div><div class="line">* Mistakes: The tree's root is nullptr, so the output is null.</div><div class="line">* 2017-06-06</div><div class="line">*/</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BinaryTreeNode</span>&#123;</span></div><div class="line">    <span class="keyword">int</span> value;  <span class="comment">// node value</span></div><div class="line">    <span class="keyword">int</span> num;    <span class="comment">// num of nodes with the same value</span></div><div class="line">    BinaryTreeNode *right;</div><div class="line">    BinaryTreeNode *left;</div><div class="line">&#125;BTNode;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Ancestor</span>&#123;</span></div><div class="line">    BTNode *node;</div><div class="line">    BTNode *parent;</div><div class="line">    <span class="keyword">bool</span> is_left_child;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Ancestor *des_node = <span class="literal">nullptr</span>;</div><div class="line"></div><div class="line"><span class="comment">// add a node to binary tree</span></div><div class="line"><span class="function">BTNode* <span class="title">add_node</span><span class="params">(BTNode *root, <span class="keyword">int</span> val)</span></span>&#123;</div><div class="line">    BTNode *ptr = root;</div><div class="line">    <span class="keyword">if</span>(!ptr)&#123; <span class="comment">// ptr is null</span></div><div class="line">        ptr = <span class="keyword">new</span> BTNode;</div><div class="line">        ptr-&gt;value = val;</div><div class="line">        ptr-&gt;num = <span class="number">1</span>;</div><div class="line">        ptr-&gt;left = ptr-&gt;right = <span class="literal">nullptr</span>;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">if</span>(val &gt; ptr-&gt;value)&#123;</div><div class="line">            ptr-&gt;right = add_node(ptr-&gt;right, val);</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(val &lt; ptr-&gt;value)&#123;</div><div class="line">            ptr-&gt;left = add_node(ptr-&gt;left, val);</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            ptr-&gt;num += <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> ptr;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// build a binary tree</span></div><div class="line"><span class="function">BTNode* <span class="title">build_binary_tree</span><span class="params">(<span class="keyword">int</span>* ary, <span class="keyword">int</span> node_num)</span></span>&#123;</div><div class="line">    BTNode *root = <span class="literal">nullptr</span>;</div><div class="line">    <span class="keyword">if</span>(node_num&lt;=<span class="number">0</span>) <span class="keyword">return</span> <span class="literal">nullptr</span>;</div><div class="line"></div><div class="line">    root = add_node(root, ary[<span class="number">0</span>]);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;node_num; i++)&#123;</div><div class="line">        add_node(root, ary[i]);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> root;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// print binary tree</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">output_binary_tree</span><span class="params">(BTNode *root)</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span>;</div><div class="line"></div><div class="line">    BTNode* ptr = root;</div><div class="line">    <span class="keyword">if</span>(ptr-&gt;left)&#123;</div><div class="line">        output_binary_tree(ptr-&gt;left);</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">cout</span>&lt;&lt;ptr-&gt;value&lt;&lt;<span class="string">":"</span>&lt;&lt;ptr-&gt;num&lt;&lt;<span class="string">"  "</span>;</div><div class="line">    <span class="keyword">if</span>(ptr-&gt;right)&#123;</div><div class="line">        output_binary_tree(ptr-&gt;right);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// main func</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> ary[] = &#123;<span class="number">90</span>,<span class="number">12</span>,<span class="number">33</span>,<span class="number">-100</span>,<span class="number">20</span>, <span class="number">23</span>,<span class="number">12</span>,<span class="number">34</span>,<span class="number">22</span>,<span class="number">78</span>, <span class="number">-1</span>,<span class="number">88</span>,<span class="number">27</span>,<span class="number">9</span>,<span class="number">8</span>, <span class="number">90</span>,<span class="number">90</span>,<span class="number">33</span>,<span class="number">10</span>,<span class="number">24</span>, <span class="number">67</span>,<span class="number">54</span>,<span class="number">24</span>,<span class="number">89</span>,<span class="number">120</span>, <span class="number">44</span>,<span class="number">55</span>,<span class="number">34</span>,<span class="number">100</span>,<span class="number">1</span>&#125;;</div><div class="line">    <span class="keyword">int</span> node_num = <span class="keyword">sizeof</span>(ary)/<span class="keyword">sizeof</span>(ary[<span class="number">0</span>]);</div><div class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"Node num:"</span>&lt;&lt;node_num&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">    <span class="comment">// build tree</span></div><div class="line">    BTNode *root = build_binary_tree(ary, node_num);</div><div class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"\nThe Binary Tree is:"</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">    output_binary_tree(root);</div><div class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> tech </tag>
+            
+            <tag> cpp </tag>
+            
+            <tag> BTree </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[#2.链表的倒数第k个节点]]></title>
       <url>/2017/06/06/2-%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/</url>
       <content type="html"><![CDATA[<hr>
@@ -10,29 +108,33 @@
 <p>找到一个单向链表的倒数第k个节点。</p>
 <hr>
 <p><strong>考虑：</strong></p>
-<ol start="0">
-<li>空链表</li>
-<li>k的输入是否合法</li>
-</ol>
+<p>1 . 空链表<br>
+2 . k的输入是否合法</p>
 <hr>
 <p><strong>知识点：</strong></p>
-<ol>
-<li>创建链表：可以拆解为不断在当前链表后追加一个节点的操作。<br>
+<p>1 . **创建链表：**可以拆解为不断在当前链表后追加一个节点的操作。<br>
 链表尾节点：NODE *ptr;<br>
 创建1个节点：NODE *new_node = new NODE; new_node-&gt;data = val;<br>
-把该节点接到尾节点之后：ptr-&gt;next = new_node;</li>
-<li>倒数第k个节点：由于是单向链表，所以没办法倒着遍历。<br>
+把该节点接到尾节点之后：ptr-&gt;next = new_node;<br>
+2 . **倒数第k个节点：**由于是单向链表，所以没办法倒着遍历。<br>
 策略1：第一轮遍历所有节点，得出链表长度n；第二轮向前走n-k+1步，到达倒数第k个节点。（共走了: n+n-k+1步）<br>
-策略2：可以采用以前一后相隔（k-1）个节点的两个指针，同时向前推进，当走在前面的指针到达链表尾部时，后面的指针刚好到达倒数第k个节点。（两个指针也共走了n+n-k+1步：O(2n)）<br>
+策略2：可以采用以前一后相隔（k-1）个节点的两个指针，同时向前推进，当走在前面的指针到达链表尾部时，后面的指针刚好到达倒数第k个节点。（两个指针也共走了:n+n-k+1步）<br>
 两种策略需要访问的节点数量是一样的，但是为什么第二种策略看起来更聪明呢？<br>
 因为策略1是顺序执行的，先走n步，然后再走n-k+1步。O(2n)<br>
-策略二可以并行执行：先走k-1步，然后两个指针再一起走n-k+1步。O(n)</li>
-</ol>
+策略二可以并行执行：先走k-1步，然后两个指针再一起走n-k+1步。O(n)</p>
 <hr>
 <p><strong>代码：</strong><br>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">* Prob: 打印链表的倒数第k个节点</div><div class="line">* Idea: 考虑各种情况：空链表，k不合法，创建链表，释放链表。</div><div class="line">* Time: O(n)</div><div class="line">* Space:O(n)</div><div class="line">* Mistakes: 创建链表，指针应当先判断为空。ptr=nullptr时，访问ptr-&gt;next会报错。</div><div class="line">* 2017-06-04</div><div class="line">*/</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>&#123;</span></div><div class="line">    <span class="keyword">int</span> n;</div><div class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">next</span>;</span></div><div class="line">&#125;NODE;</div><div class="line"></div><div class="line"><span class="comment">// add a node after the pre_ptr</span></div><div class="line"><span class="function">NODE* <span class="title">add_node</span><span class="params">(NODE* pre_ptr, <span class="keyword">int</span> data)</span></span>&#123;</div><div class="line">    NODE* nd = <span class="keyword">new</span> NODE;</div><div class="line">    nd-&gt;n = data;</div><div class="line">    nd-&gt;next = <span class="literal">nullptr</span>;</div><div class="line">    pre_ptr-&gt;next = nd;</div><div class="line">    <span class="keyword">return</span> nd;</div><div class="line">&#125;</div><div class="line"><span class="comment">// create a link list</span></div><div class="line"><span class="function">NODE* <span class="title">create_linklist</span><span class="params">(NODE*head, <span class="keyword">int</span> length)</span></span>&#123;</div><div class="line">    NODE *ptr;</div><div class="line">    ptr = <span class="keyword">new</span> NODE;</div><div class="line">    head = ptr;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=length; i++)&#123;</div><div class="line">        ptr = add_node(ptr, i);</div><div class="line">    &#125;</div><div class="line">    ptr-&gt;next = <span class="literal">nullptr</span>;</div><div class="line">    <span class="keyword">return</span> head;</div><div class="line">&#125;</div><div class="line"><span class="comment">// release the link list</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">release_linklist</span><span class="params">(NODE*head)</span></span>&#123;</div><div class="line">    NODE *ptr=head, *q;</div><div class="line">    <span class="keyword">while</span>(ptr!=<span class="literal">nullptr</span>)&#123;</div><div class="line">        q = ptr;</div><div class="line">        <span class="keyword">delete</span> ptr;</div><div class="line">        ptr = q-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">// output the link list</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_linklist</span><span class="params">(NODE* head)</span></span>&#123;</div><div class="line">    NODE* ptr = head-&gt;next;</div><div class="line">    <span class="keyword">while</span>(ptr != <span class="literal">nullptr</span>)&#123;</div><div class="line">        <span class="built_in">cout</span>&lt;&lt;ptr-&gt;n&lt;&lt;<span class="string">'\t'</span>;</div><div class="line">        ptr = ptr-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">// output the</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">back_k_node</span><span class="params">(NODE* head, <span class="keyword">int</span> k)</span></span>&#123;</div><div class="line">    <span class="comment">// null</span></div><div class="line">    <span class="keyword">if</span>(head == <span class="literal">nullptr</span>) &#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"Link list is null!"</span>&lt;&lt;<span class="built_in">endl</span>; <span class="keyword">return</span>;&#125;</div><div class="line">    <span class="comment">// k &lt; 1</span></div><div class="line">    <span class="keyword">if</span>(k &lt;= <span class="number">0</span>) &#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"k should be greater than 0!"</span>&lt;&lt;<span class="built_in">endl</span>; <span class="keyword">return</span>;&#125;</div><div class="line"></div><div class="line">    NODE *ptr1, *ptr2;</div><div class="line">    ptr1 = ptr2 = head-&gt;next;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;k<span class="number">-1</span>; i++)&#123;</div><div class="line">        <span class="comment">// k &gt; num</span></div><div class="line">        <span class="keyword">if</span>(ptr1 == <span class="literal">nullptr</span>) &#123;<span class="keyword">break</span>;&#125;</div><div class="line">        ptr1 = ptr1-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(ptr1 == <span class="literal">nullptr</span>) &#123;<span class="built_in">cout</span>&lt;&lt;k&lt;&lt;<span class="string">" is larger than the linklist size!"</span>&lt;&lt;<span class="built_in">endl</span>; <span class="keyword">return</span>;&#125;</div><div class="line">    <span class="keyword">while</span>(ptr1-&gt;next != <span class="literal">nullptr</span>)&#123;</div><div class="line">        ptr1 = ptr1-&gt;next;</div><div class="line">        ptr2 = ptr2-&gt;next;</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">cout</span>&lt;&lt;k&lt;&lt;<span class="string">"th ele is: "</span>&lt;&lt;ptr2-&gt;n&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// main func</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    NODE* head = <span class="literal">nullptr</span>;</div><div class="line">    <span class="keyword">int</span> num = <span class="number">19</span>;</div><div class="line">    <span class="keyword">int</span> test_units[<span class="number">10</span>] = &#123;<span class="number">0</span>, <span class="number">-1</span>, <span class="number">-20</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">10</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">22</span>, <span class="number">100</span>&#125;;</div><div class="line">    head = create_linklist(head, num);</div><div class="line">    print_linklist(head);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++)</div><div class="line">        back_k_node(head, test_units[i]);</div><div class="line">    release_linklist(head);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 ]]></content>
       
+        
+        <tags>
+            
+            <tag> tech </tag>
+            
+            <tag> cpp </tag>
+            
+        </tags>
         
     </entry>
     

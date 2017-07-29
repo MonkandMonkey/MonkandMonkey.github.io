@@ -16,7 +16,7 @@
 
   <!--Open Graph Title-->
   
-      <meta property="og:title" content="Amy"/>
+      <meta property="og:title" content="#4.排列与组合"/>
   
   <!--Open Graph Description-->
   
@@ -24,7 +24,7 @@
   <meta property="og:site_name" content="Amy"/>
   <!--Type page-->
   
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content="article" />
   
   <!--Page Cover-->
   
@@ -33,7 +33,7 @@
 
   <!-- Title -->
   
-  <title>彙整：2017/6 - Amy</title>
+  <title>#4.排列与组合 - Amy</title>
 
 
   <link rel="shortcut icon" href="/images/amy/bath.png">
@@ -113,191 +113,76 @@
 
 
   <!-- Main Content -->
-  
-
-<!-- Main Content -->
-<div class="archive content-area">
-  <div class="container">
-    <h1 class="entry-title">2017/6</h1>
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <!-- Use lodash to classify posts. See https://lodash.com/docs#groupBy
-          1. group site.posts by year
-          2. sort posts-in-one-year by Month and Day
-        -->
-        
-
-        
-          <h2 class="year">2017</h2>
-          <ul class="list">
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            #4.排列与组合
             
-  <li>
-    <span class="date">
-      2017-06-21
-    </span>
-    <a href="/2017/06/21/4-排列与组合/" class="title">
-      #4.排列与组合
-    </a>
-  </li>
+          </h1>
+          <p class="posted-on">
+          2017-06-21
+          </p>
+          <div class="tags-links">
+            
+              
+                <a href="/tags/tech/" rel="tag">
+                  tech
+                </a>
+              
+                <a href="/tags/cpp/" rel="tag">
+                  cpp
+                </a>
+              
+            
+          </div>
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <hr>
+<p>排列组合是高中数学里我们学过的知识，不过那时候我们计算的是满足某一条件的排列组合的总数，也就是说，我们求的是一个数值。而今天的问题是：通过完成一个程序，列出某个排列组合的所有可能情况。</p>
+<p><strong>问题：</strong></p>
+<ol>
+<li>如何生成$n$个数中选择$k$个数的所有组合$C_n^k$ ?</li>
+<li>如何生成$n$个数中选择$k$个数的所有排列$A_n^k$ ?</li>
+<li>如何生成由$n$个数字组成的所有$k$位数 ?</li>
+</ol>
+<hr>
+<p>问题1：<br>
+组合$C_n^k$，数字的顺序无关，即：相同的数字以不同的顺序出现会被视为一种情况。我们在列举每一种情况时，可以逐位列举。e.g.<br>
+列出$C_5^3$的所有可能，我们可以这样做:<br>
+从数组 <strong>[1,2,3,4,5]</strong> 中每次挑选出 <strong>3</strong> 个不同的数字来，且不关注这些数字的顺序。</p>
+<p>——  ——  ——<br>
+[1]　[2]　[3]</p>
+<p>1). 位置[1]上可以选择：1,2,3,4,5，但是我们仔细想想就会发现：对于组合问题，为了不重复统计，我们通常让数字按照从小到大的顺序排列，即我们通常使用：3,4,5 而非5,4,3。所以如果5个里取3个的话位置[1]上最大就是3，因为还要留两个数填在位置[2],和位置[3]上。<br>
+2). 假设我们在位置[1]上填了2,接着我们来填位置[2],此时，我们发现，剩下的能够供我们选择的数字变成了[3,4,5]，因为默认按照从小到大排列。在填位置[2]时，我们的方法和填位置[1]是一样的，唯一的不同是可供选择的数少了一些。这里可以用递归进行处理。<br>
+3). 我们用同样的方法也填出了位置[3]上的数据。现在我们可以输出当前组合，eg.2,3,5。<br>
+4). 接下来需要找到下一种组合：在填位置</p>
 
-  <li>
-    <span class="date">
-      2017-06-09
-    </span>
-    <a href="/2017/06/09/3-二叉查找树/" class="title">
-      #3.二叉查找树
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2017-06-09
-    </span>
-    <a href="/2017/06/09/月光与晚霞/" class="title">
-      月光与晚霞
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2017-06-06
-    </span>
-    <a href="/2017/06/06/2-链表的倒数第k个节点/" class="title">
-      #2.链表的倒数第k个节点
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2017-05-31
-    </span>
-    <a href="/2017/05/31/1-字符串转整数/" class="title">
-      #1.字符串转整数
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2017-05-19
-    </span>
-    <a href="/2017/05/19/Tensorflow-Get-Started/" class="title">
-      Tensorflow Get Started
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2017-05-17
-    </span>
-    <a href="/2017/05/17/Python中-的疑惑/" class="title">
-      Python中_的疑惑
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2017-05-10
-    </span>
-    <a href="/2017/05/10/windows下mysql安装/" class="title">
-      windows下mysql安装
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2017-05-09
-    </span>
-    <a href="/2017/05/09/matplotlib绘图笔记/" class="title">
-      matplotlib绘图笔记
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2017-05-07
-    </span>
-    <a href="/2017/05/07/使用python argparse 编写友好的命令行接口/" class="title">
-      使用 python argparse: 编写友好的命令行接口
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2017-05-03
-    </span>
-    <a href="/2017/05/03/xpath那些事儿/" class="title">
-      xpath那些事儿
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2017-04-30
-    </span>
-    <a href="/2017/04/30/c++单例模式singleton实现/" class="title">
-      c++单例模式singleton实现
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2017-04-30
-    </span>
-    <a href="/2017/04/30/如何安装Mongodb？/" class="title">
-      如何安装Mongodb？
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2017-04-25
-    </span>
-    <a href="/2017/04/25/codeblocks中nullptr的使用/" class="title">
-      codeblocks 16.01 中使用C++的nullptr
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2017-04-24
-    </span>
-    <a href="/2017/04/24/static变量在c-中的使用/" class="title">
-      static变量在c++中的使用
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2017-04-23
-    </span>
-    <a href="/2017/04/23/Hexo-学习笔记/" class="title">
-      Hexo 学习笔记
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2017-04-22
-    </span>
-    <a href="/2017/04/22/hello-world/" class="title">
-      Hello World
-    </a>
-  </li>
-
-  <li>
-    <span class="date">
-      2017-04-22
-    </span>
-    <a href="/2017/04/22/I-love-u/" class="title">
-      Secret(秘密)
-    </a>
-  </li>
-
-
-          </ul>
-        
-      </div>
+        </div>
+      </article>
     </div>
+    <!-- Comments -->
+    <div class="container">
+      
+
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+        <div class="nav-previous">
+          <a href="/2017/06/09/月光与晚霞/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> 上一頁</a>
+        </div>
+      
+      
+    </div>
+
   </div>
 </div>
 
@@ -365,6 +250,8 @@
   var disqus_shortname = 'monkandmonkey3';
 
   
+  var disqus_url = 'http://localhost:4000/2017/06/21/4-排列与组合/';
+  
 
   (function(){
     var dsq = document.createElement('script');
@@ -373,7 +260,24 @@
     dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 
