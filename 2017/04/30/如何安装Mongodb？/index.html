@@ -143,39 +143,58 @@
         </div>
         <!-- Post Main Content -->
         <div class="entry-content">
-          <p>本文记录了在我的PC上安装Mongodb的过程，以备忘。<br>参考：<a href="http://www.runoob.com/mongodb/mongodb-window-install.html" target="_blank" rel="external">菜鸟教程-Mongodb</a></p>
-<h3 id="1-下载：Mongodb-community-选择适合自己操作系统的版本。"><a href="#1-下载：Mongodb-community-选择适合自己操作系统的版本。" class="headerlink" title="1. 下载：Mongodb community 选择适合自己操作系统的版本。"></a>1. 下载：<a href="https://www.mongodb.com/download-center#community" target="_blank" rel="external">Mongodb community</a> 选择适合自己操作系统的版本。</h3><h3 id="2-安装Mongodb："><a href="#2-安装Mongodb：" class="headerlink" title="2. 安装Mongodb："></a>2. 安装Mongodb：</h3><ol>
-<li>安装Mongodb的安装文件，可以选择complete默认安装，也可选择custom自己指定安装的路径和功能。  </li>
-<li><p>创建数据目录：我要把数据库的数据目录放在D:盘</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt; d:</div><div class="line">&gt; <span class="built_in">cd</span> \your-path-to\Mongodb</div><div class="line">&gt; mkdir db <span class="comment"># 新建一个db文件夹</span></div><div class="line">&gt; mkdir <span class="built_in">log</span> <span class="comment"># 新建一个log文件夹</span></div></pre></td></tr></table></figure>
+          <p>本文记录了在我的PC上安装Mongodb的过程，以备忘。<br>
+参考：<a href="http://www.runoob.com/mongodb/mongodb-window-install.html" target="_blank" rel="external">菜鸟教程-Mongodb</a></p>
+<h3>1. 下载：<a href="https://www.mongodb.com/download-center#community" target="_blank" rel="external">Mongodb community</a> 选择适合自己操作系统的版本。</h3>
+<h3>2. 安装Mongodb：</h3>
+<ol>
+<li>
+<p>安装Mongodb的安装文件，可以选择complete默认安装，也可选择custom自己指定安装的路径和功能。</p>
 </li>
-<li><p>添加环境变量：在Path环境变量中添加Mongodb安装好的bin路径，就能从命令行直接启动Mongodb而无需切换到安装目录下了。</p>
+<li>
+<p>创建数据目录：我要把数据库的数据目录放在D:盘
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt; d:</div><div class="line">&gt; <span class="built_in">cd</span> \your-path-to\Mongodb</div><div class="line">&gt; mkdir db <span class="comment"># 新建一个db文件夹</span></div><div class="line">&gt; mkdir <span class="built_in">log</span> <span class="comment"># 新建一个log文件夹</span></div></pre></td></tr></table></figure></p>
 </li>
-<li>设置安全认证登陆：<br>Mongodb默认没有密码，但是为了保证数据的安全性，我们给数据库开启安全性认证。大致流程是这样的：   <ul>
+<li>
+<p>添加环境变量：在Path环境变量中添加Mongodb安装好的bin路径，就能从命令行直接启动Mongodb而无需切换到安装目录下了。</p>
+</li>
+<li>
+<p>设置安全认证登陆：<br>
+Mongodb默认没有密码，但是为了保证数据的安全性，我们给数据库开启安全性认证。大致流程是这样的：</p>
+<ul>
 <li>以无认证方式启动mongodb server</li>
 <li>client连接上去，创建一个usr-admin(管理用户的用户)</li>
 <li>以认证方式启动mongodb server</li>
 <li>client以usr-admin身份登陆，再创建一个普通用户amy(只对test数据库有操作权限)</li>
-<li>使用amy登陆，向test数据库中插入数据。   </li>
+<li>使用amy登陆，向test数据库中插入数据。</li>
 </ul>
 </li>
-<li><p>创建用户：<br> 以管理员权限打开cmd。</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt; mongod --dbpath <span class="string">"\your-path-to\Mongodb\db"</span> --logpath    </div><div class="line"><span class="string">"\your-path-to\Mongodb\log\Mongodb.log"</span>   </div><div class="line"><span class="comment"># 以不认证方式启动Mongodb服务，log写在log文件夹下的Mogodb.log文件里，这样控制台窗    </span></div><div class="line"><span class="comment"># 口就不会输出一大堆信息，整个世界都清静了。</span></div></pre></td></tr></table></figure>
-<p> <em>创建用户:</em><br> 设置了认证，需要有用户才可以登陆。我们这一步创建两个用户：usr-admin和amy。<br> usr-admin是管理员，amy是普通用户。<br><strong>5.1 创建usr-admin用户：</strong><br> 打开一个新的cmd窗口：       </p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 启动一个client，会连接上刚才启动的server服务。  </span></div><div class="line">&gt; mongo</div></pre></td></tr></table></figure>
-<p> <img src="/images/Mongodb/1-connected.PNG" alt="连接成功！" title="client链接server"><br> Mongodb 3.0以后把addUser()函数改成了<a href="https://docs.mongodb.com/manual/reference/method/db.createUser/#create-administrative-user-with-roles" target="_blank" rel="external">createUser()</a>   </p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; use admin</div><div class="line">&gt; db.createUser(&#123;</div><div class="line">	user:<span class="string">"usr-admin"</span>,</div><div class="line">	<span class="built_in">pwd</span>:<span class="string">"password"</span>,</div><div class="line">	roles: [&#123;</div><div class="line">		role:<span class="string">"userAdminAnyDatabase"</span>,</div><div class="line">		db: <span class="string">"admin"</span></div><div class="line">	&#125;]</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p> role（角色）就是权限的集合。在这里，我们赋予了usr-admin用户对于admin数据库 “userAdminAnyDatabase”的权限。<br><strong>5.2 创建普通用户：</strong> </p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 以认证方式启动mongdb server:</span></div><div class="line">&gt; mongod --dbpath <span class="string">"D:\0-softwares\coding\Mongodb\db"</span> --logpath <span class="string">"D:\0-softwares\coding\Mongodb\log\Mongodb.log"</span> --auth</div><div class="line"><span class="comment"># 新开一个cmd启动client</span></div><div class="line">&gt; use admin <span class="comment"># 切换到admin数据库下</span></div><div class="line">&gt; db.auth(<span class="string">'usr-admin'</span>,<span class="string">'password'</span>) <span class="comment"># 以usr-admin身份登陆</span></div><div class="line"><span class="comment"># 从test数据库创建用户amy</span></div><div class="line">&gt; use <span class="built_in">test</span></div><div class="line">&gt; db.createUser(&#123; </div><div class="line">	user:<span class="string">"amy"</span>,</div><div class="line">	<span class="built_in">pwd</span>:<span class="string">"password"</span>,</div><div class="line">	roles: [</div><div class="line">		&#123;role:<span class="string">"readWrite"</span>,db: <span class="string">"test"</span>&#125;,</div><div class="line">		&#123;role:<span class="string">"dbOwner"</span>,db:<span class="string">"test"</span>&#125;</div><div class="line">	]</div><div class="line">&#125;)</div><div class="line">&gt; show users</div><div class="line">&gt; db.auth(<span class="string">'amy'</span>,<span class="string">'password'</span>)</div><div class="line">&gt; db.test.insert(&#123;<span class="string">'hello'</span>:<span class="string">'amy'</span>&#125;)</div><div class="line">&gt; db.tets.find()</div></pre></td></tr></table></figure>
+<li>
+<p>创建用户：
+以管理员权限打开cmd。
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt; mongod --dbpath <span class="string">"\your-path-to\Mongodb\db"</span> --logpath    </div><div class="line"><span class="string">"\your-path-to\Mongodb\log\Mongodb.log"</span>   </div><div class="line"><span class="comment"># 以不认证方式启动Mongodb服务，log写在log文件夹下的Mogodb.log文件里，这样控制台窗    </span></div><div class="line"><span class="comment"># 口就不会输出一大堆信息，整个世界都清静了。</span></div></pre></td></tr></table></figure></p>
+<p><em>创建用户:</em><br>
+设置了认证，需要有用户才可以登陆。我们这一步创建两个用户：usr-admin和amy。<br>
+usr-admin是管理员，amy是普通用户。<br>
+<strong>5.1 创建usr-admin用户：</strong><br>
+打开一个新的cmd窗口：<br>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 启动一个client，会连接上刚才启动的server服务。  </span></div><div class="line">&gt; mongo</div></pre></td></tr></table></figure></p>
+<p><img src="/images/Mongodb/1-connected.PNG" alt="连接成功！" title="client链接server"><br>
+Mongodb 3.0以后把addUser()函数改成了<a href="https://docs.mongodb.com/manual/reference/method/db.createUser/#create-administrative-user-with-roles" target="_blank" rel="external">createUser()</a><br>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; use admin</div><div class="line">&gt; db.createUser(&#123;</div><div class="line">	user:<span class="string">"usr-admin"</span>,</div><div class="line">	<span class="built_in">pwd</span>:<span class="string">"password"</span>,</div><div class="line">	roles: [&#123;</div><div class="line">		role:<span class="string">"userAdminAnyDatabase"</span>,</div><div class="line">		db: <span class="string">"admin"</span></div><div class="line">	&#125;]</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>role（角色）就是权限的集合。在这里，我们赋予了usr-admin用户对于admin数据库 “userAdminAnyDatabase”的权限。<br>
+<strong>5.2 创建普通用户：</strong></p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 以认证方式启动mongdb server:</span></div><div class="line">&gt; mongod --dbpath <span class="string">"D:\0-softwares\coding\Mongodb\db"</span> --logpath <span class="string">"D:\0-softwares\coding\Mongodb\log\Mongodb.log"</span> --auth</div><div class="line"><span class="comment"># 新开一个cmd启动client</span></div><div class="line">&gt; use admin <span class="comment"># 切换到admin数据库下</span></div><div class="line">&gt; db.auth(<span class="string">'usr-admin'</span>,<span class="string">'password'</span>) <span class="comment"># 以usr-admin身份登陆</span></div><div class="line"><span class="comment"># 从test数据库创建用户amy</span></div><div class="line">&gt; use <span class="built_in">test</span></div><div class="line">&gt; db.createUser(&#123; </div><div class="line">	user:<span class="string">"amy"</span>,</div><div class="line">	<span class="built_in">pwd</span>:<span class="string">"password"</span>,</div><div class="line">	roles: [</div><div class="line">		&#123;role:<span class="string">"readWrite"</span>,db: <span class="string">"test"</span>&#125;,</div><div class="line">		&#123;role:<span class="string">"dbOwner"</span>,db:<span class="string">"test"</span>&#125;</div><div class="line">	]</div><div class="line">&#125;)</div><div class="line">&gt; show users</div><div class="line">&gt; db.auth(<span class="string">'amy'</span>,<span class="string">'password'</span>)</div><div class="line">&gt; db.test.insert(&#123;<span class="string">'hello'</span>:<span class="string">'amy'</span>&#125;)</div><div class="line">&gt; db.tets.find()</div></pre></td></tr></table></figure></p>
 </li>
 </ol>
-<h3 id="3-总结："><a href="#3-总结：" class="headerlink" title="3. 总结："></a>3. 总结：</h3><ul>
+<h3>3. 总结：</h3>
+<ul>
 <li>建议使用认证登陆，这样能够保证数据库的安全；</li>
 <li>用户登陆应当从创建该用户的数据库开始：use the-database；</li>
 <li>usr-admin用户可以创建其他用户；</li>
-<li>可以删除用户：db.dropUser(‘usrname’)</li>
-<li>删除数据库：<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; use dbname   </div><div class="line">&gt; db.dropDatabase()</div></pre></td></tr></table></figure>
-</li>
+<li>可以删除用户：db.dropUser('usrname')</li>
+<li>删除数据库：
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; use dbname   </div><div class="line">&gt; db.dropDatabase()</div></pre></td></tr></table></figure></li>
 </ul>
 
         </div>
