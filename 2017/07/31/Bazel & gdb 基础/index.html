@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="MonkandMonkey">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="Bazel &amp; gdb 基础"/>
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="Amy"/>
+  <!--Type page-->
+  
+      <meta property="og:type" content="article" />
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>Bazel &amp; gdb 基础 - Amy</title>
+
+
+  <link rel="shortcut icon" href="/images/amy/bath.png">
+
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!----------------------------
+  https://github.com/GallenHu/hexo-theme-Daily
+
+ _____            _   _
+|  __ \          (_) | |
+| |  | |   __ _   _  | |  _   _
+| |  | |  / _` | | | | | | | | |
+| |__| | | (_| | | | | | | |_| |
+|_____/   \__,_| |_| |_|  \__, |
+                          __/ |
+                         |___/
+
+    ---------------------------><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="/images/amy/owl.jpg" alt="Amy" height="60">
+        
+      </a>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  Home
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  Archive
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  About
+                
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            Bazel & gdb 基础
+            
+          </h1>
+          <p class="posted-on">
+          2017-07-31
+          </p>
+          <div class="tags-links">
+            
+              
+                <a href="/tags/tech/" rel="tag">
+                  tech
+                </a>
+              
+                <a href="/tags/cpp/" rel="tag">
+                  cpp
+                </a>
+              
+                <a href="/tags/bazel/" rel="tag">
+                  bazel
+                </a>
+              
+                <a href="/tags/gdb/" rel="tag">
+                  gdb
+                </a>
+              
+            
+          </div>
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <h2>学习使用bazel 和 gdb 调试程序</h2>
+<ul>
+<li><strong>bazel</strong>: Google推出的一个代码调试工具， 比makefile用起来更简洁、方便。</li>
+<li><strong>gdb</strong> : GNU Project Debugger, 支持多种语言的代码调试。</li>
+</ul>
+<h2>1. Bazel 基本概念：</h2>
+<ul>
+<li>bazel命令必须在一个包含WORKSPACE的路径下发生，如果没有可以新建一个空的WORKSPACE。</li>
+<li>在这个路径下的任意子路径里执行bazel命令都可以。</li>
+<li>BUILD 文件里定义了一些rules，每条rule告诉bazel编译某个.cc源文件需要依赖哪些文件:deps，编译生成的可执行文件是什么:name，诸如此类。</li>
+</ul>
+<h2>2.Bazel 查看依赖Graph:</h2>
+<p>当项目包含多个pakages时，可以查看不同文件夹下各个源文件之间的依赖关系，一目了然：
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 栗子来源于Bazel官方教程：</span></div><div class="line">https://docs.bazel.build/versions/master/tutorial/cpp.html</div><div class="line"><span class="comment"># 生成依赖信息</span></div><div class="line">bazel query --nohost_deps --noimplicit_deps <span class="string">'deps(//main:hello-world)'</span> \</div><div class="line">  --output graph</div><div class="line"><span class="comment"># 把生成的内容（eg. 如下）复制到：http://www.webgraphviz.com/</span></div><div class="line">digraph mygraph &#123;</div><div class="line">  node [shape=box];</div><div class="line"><span class="string">"//main:hello-world"</span></div><div class="line"><span class="string">"//main:hello-world"</span> -&gt; <span class="string">"//main:hello-greet"</span></div><div class="line"><span class="string">"//main:hello-world"</span> -&gt; <span class="string">"//main:hello-world.cc"</span></div><div class="line"><span class="string">"//main:hello-world"</span> -&gt; <span class="string">"//lib:hello-time"</span></div><div class="line"><span class="string">"//main:hello-world.cc"</span></div><div class="line"><span class="string">"//main:hello-greet"</span></div><div class="line"><span class="string">"//main:hello-greet"</span> -&gt; <span class="string">"//main:hello-greet.cc\n//main:hello-greet.h"</span></div><div class="line"><span class="string">"//main:hello-greet.cc\n//main:hello-greet.h"</span></div><div class="line"><span class="string">"//lib:hello-time"</span></div><div class="line"><span class="string">"//lib:hello-time"</span> -&gt; <span class="string">"//lib:hello-time.cc\n//lib:hello-time.h"</span></div><div class="line"><span class="string">"//lib:hello-time.cc\n//lib:hello-time.h"</span></div><div class="line">&#125;</div><div class="line"><span class="comment"># 即可看到文件之间的依赖关系图</span></div></pre></td></tr></table></figure></p>
+<h2>3. build</h2>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 它所依赖的都文件会一起被build，所以一般build main函数所在的文件</span></div><div class="line">bazel build //main:hello-world  <span class="comment"># //path:name</span></div><div class="line"><span class="comment"># cd 到WORKSPACE所在目录下可以看到多了几个以bazel-打头的文件夹（其实是软链接，不在这个文件夹下的）</span></div><div class="line"><span class="comment"># bazel-bin 里是编译生成的可执行文件。</span></div></pre></td></tr></table></figure></p>
+<h2>4. debug</h2>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 要用gdb调试的话，需要在build时加参数: -c dbg 意思是：--config debug， 这样就会build时加上debug所需要的信息</span></div><div class="line">bazel build -c dbg //main:hello-world</div><div class="line"><span class="comment"># 进入调试模式</span></div><div class="line">gdb</div><div class="line"><span class="comment"># 载入可执行文件</span></div><div class="line">file bazel-bin/hello-world</div><div class="line"><span class="comment"># 添加断点</span></div><div class="line">b /lib/hello-time.cc : 6</div><div class="line">b /main/hello-world.cc : 10</div><div class="line"><span class="comment"># 查看断点</span></div><div class="line">info b</div><div class="line"><span class="comment"># 查看断点附近的代码</span></div><div class="line">list /main/hello-world.cc : 10</div><div class="line"><span class="comment"># 运行</span></div><div class="line">r</div><div class="line"><span class="comment"># 带参数运行</span></div><div class="line">r amy</div><div class="line"><span class="comment"># 直接运行到下一个断点</span></div><div class="line">c</div><div class="line"><span class="comment"># 打印变量</span></div><div class="line">p var_name</div><div class="line"><span class="comment"># 执行下一行</span></div><div class="line">n</div><div class="line"><span class="comment"># 执行下一行，step into 函数</span></div><div class="line">s</div><div class="line"><span class="comment"># 查看堆栈</span></div><div class="line">bt</div><div class="line"><span class="comment"># 结束调试</span></div><div class="line">q</div></pre></td></tr></table></figure></p>
+
+        </div>
+      </article>
+    </div>
+    <!-- Comments -->
+    <div class="container">
+      
+
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+        <div class="nav-previous">
+          <a href="/2017/07/30/4-排列与组合/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> Older Posts</a>
+        </div>
+      
+      
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+<div class="footer-widgets">
+  <div class="row inside-wrapper">
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">Me</h1>
+        <div class="custom-widget-content">
+          
+          <ul><li>MonkandMonkey</li></ul>
+        </div>
+      </aside>
+    </div>
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">Contact</h1>
+        <div class="widget-text">
+          
+            
+              <a href="https://github.com/MonkandMonkey" class="icon icon-github" target="_blank">github</a>
+            
+              <a href="mailto:chenjing.amy@pku.edu.cn" class="icon icon-mail" target="_blank">mail</a>
+            
+          
+        </div>
+      </aside>
+    </div>
+    
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">Search</h1>
+        <div class="widget-text">
+          <form onSubmit="return appDaily.submitSearch('')">
+            <p>
+              <input type="text" placeholder="search..." id="homeSearchInput">
+            </p>
+             <!--<input type="submit" value="GO">-->
+          </form>
+        </div>
+      </aside>
+    </div> 
+  </div>
+</div>
+<!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>Amy &copy; 2017</span>
+    
+      <span class="split">|</span>
+      <span>Powered by MonkandMonkey</a></span>
+    
+  </p>
+</footer>
+
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+<script>
+  var disqus_shortname = 'monkandmonkey3';
+
+  
+  var disqus_url = 'http://localhost:4000/2017/07/31/Bazel &amp; gdb 基础/';
+  
+
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+</body>
+
+</html>
