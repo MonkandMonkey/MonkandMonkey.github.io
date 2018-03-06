@@ -916,12 +916,13 @@ Footer
     /* line 63, themes/Daily/source/css/_nav.scss */
     .navbar ul li a {
       text-decoration: none;
-      line-height: 1.5; }
-      /* line 66, themes/Daily/source/css/_nav.scss */
+      line-height: 1.5;
+      font-family: Arial; }
+      /* line 67, themes/Daily/source/css/_nav.scss */
       .navbar ul li a:hover {
         opacity: 1; }
 
-/* line 74, themes/Daily/source/css/_nav.scss */
+/* line 75, themes/Daily/source/css/_nav.scss */
 .navbar ul li:before {
   position: absolute;
   bottom: 0px;
@@ -934,7 +935,7 @@ Footer
   -webkit-transition: width 0.25s ease;
   transition: width 0.25s ease; }
 
-/* line 86, themes/Daily/source/css/_nav.scss */
+/* line 87, themes/Daily/source/css/_nav.scss */
 .navbar ul li:hover:before {
   width: 100%; }
 
