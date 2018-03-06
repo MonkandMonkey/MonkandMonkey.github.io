@@ -143,54 +143,35 @@
         </div>
         <!-- Post Main Content -->
         <div class="entry-content">
-          <h2>1. 说说你的故事</h2>
-<h3>为你的hexo blog添加&quot;about&quot;详情页</h3>
-<ul>
-<li>
-<p>新建一个 about 页面
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; hexo new page <span class="string">"about"</span></div></pre></td></tr></table></figure></p>
+          <h2 id="1-说说你的故事"><a href="#1-说说你的故事" class="headerlink" title="1. 说说你的故事"></a>1. 说说你的故事</h2><h3 id="为你的hexo-blog添加”about”详情页"><a href="#为你的hexo-blog添加”about”详情页" class="headerlink" title="为你的hexo blog添加”about”详情页"></a>为你的hexo blog添加”about”详情页</h3><ul>
+<li><p>新建一个 about 页面</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; hexo new page <span class="string">"about"</span></div></pre></td></tr></table></figure>
 </li>
-<li>
-<p>在blog的根目录下会自动生成一个about文件夹，把里面的about.md修改成你想写的信息。</p>
+<li><p>在blog的根目录下会自动生成一个about文件夹，把里面的about.md修改成你想写的信息。</p>
 </li>
-<li>
-<p>简单修改配置文件: 在所用<strong>主题</strong>的_config.yml文件中，将nav中about前面的注释去掉。
-例如：
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">nav:</div><div class="line">    home: .</div><div class="line">    archive: archives</div><div class="line">    about: about</div></pre></td></tr></table></figure></p>
+<li><p>简单修改配置文件: 在所用<strong>主题</strong>的_config.yml文件中，将nav中about前面的注释去掉。<br>例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">nav:</div><div class="line">    home: .</div><div class="line">    archive: archives</div><div class="line">    about: about</div></pre></td></tr></table></figure>
 </li>
-<li>
-<p>刷新一下，即刻呈现！
-<img src="/images/hexo/hexo-about.jpg" alt="blog's about page"></p>
+<li><p>刷新一下，即刻呈现！<br><img src="/images/hexo/hexo-about.jpg" alt="blog&#39;s about page"></p>
 </li>
 </ul>
-<p>&lt;br&gt;
-&lt;br&gt;</p>
-<h2>2. 在本地启动hexo server</h2>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> 到blog目录下</div><div class="line">&gt; hexo server</div><div class="line">即可通过 http://localhost:4000/ 访问你的博客。</div></pre></td></tr></table></figure></p>
-<h2>3. 把你本地的blog部署到github上</h2>
-<ul>
-<li>
-<p>到github新建一个仓库，仓库名为：YourGithubUsername.github.io <strong>必须为这个名字</strong></p>
+<p><br><br><br></p>
+<h2 id="2-在本地启动hexo-server"><a href="#2-在本地启动hexo-server" class="headerlink" title="2. 在本地启动hexo server"></a>2. 在本地启动hexo server</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> 到blog目录下</div><div class="line">&gt; hexo server</div><div class="line">即可通过 http://localhost:4000/ 访问你的博客。</div></pre></td></tr></table></figure>
+<h2 id="3-把你本地的blog部署到github上"><a href="#3-把你本地的blog部署到github上" class="headerlink" title="3. 把你本地的blog部署到github上"></a>3. 把你本地的blog部署到github上</h2><ul>
+<li>到github新建一个仓库，仓库名为：YourGithubUsername.github.io <strong>必须为这个名字</strong></li>
+<li><p>配置root目录下的_config.yml文件:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: git</div><div class="line">  repository: git@github.com:YourGithubUsername/YourGithubUsername.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure>
 </li>
-<li>
-<p>配置root目录下的_config.yml文件:
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: git</div><div class="line">  repository: git@github.com:YourGithubUsername/YourGithubUsername.github.io.git</div><div class="line">  branch: master</div></pre></td></tr></table></figure></p>
-</li>
-<li>
-<p>在cmd中执行命令：
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt; hexo clean  </div><div class="line">&gt; hexo generate  <span class="comment"># hexo g</span></div><div class="line">&gt; hexo deploy  <span class="comment"># hexo d</span></div></pre></td></tr></table></figure></p>
+<li><p>在cmd中执行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt; hexo clean  </div><div class="line">&gt; hexo generate  <span class="comment"># hexo g</span></div><div class="line">&gt; hexo deploy  <span class="comment"># hexo d</span></div></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>就会自动生成.deploy_git文件夹,并推送到github上。<br>
-也可以手动推送至github:</p>
+<p>就会自动生成.deploy_git文件夹,并推送到github上。<br>也可以手动推送至github:</p>
 <ul>
-<li>
-<p>在git中cd 进入这个.deploy_git文件夹
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 初次操作</div><div class="line">$ git remote add origin [your repo link] //http or ssh</div><div class="line">$ git push -u origin master </div><div class="line">// 之后推送</div><div class="line">$ git push origin master</div></pre></td></tr></table></figure></p>
+<li><p>在git中cd 进入这个.deploy_git文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 初次操作</div><div class="line">$ git remote add origin [your repo link] //http or ssh</div><div class="line">$ git push -u origin master </div><div class="line">// 之后推送</div><div class="line">$ git push origin master</div></pre></td></tr></table></figure>
 </li>
-<li>
-<p>打开浏览器，访问：https://yourgithubusername.github.io/
-就可以看到你的博客啦！</p>
+<li><p>打开浏览器，访问：<a href="https://yourgithubusername.github.io/" target="_blank" rel="external">https://yourgithubusername.github.io/</a><br>就可以看到你的博客啦！</p>
 </li>
 </ul>
 
@@ -268,7 +249,7 @@
 <!-- Footer -->
 <footer class="site-info">
   <p>
-    <span>Amy &copy; 2017</span>
+    <span>Amy &copy; 2018</span>
     
       <span class="split">|</span>
       <span>Powered by MonkandMonkey</a></span>
