@@ -161,31 +161,31 @@
 <p>下面展示了一些有用的例子，以后可能会用到。</p>
 <ol>
 <li><p>选取 class = ‘u ‘的 div:   </p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@<span class="keyword">class</span>=<span class="string">'ut'</span>]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos;]</div></pre></td></tr></table></figure>
 </li>
 <li><p>选取 table 元素的某个部分, 索引下标从1开始:   </p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/<span class="selector-tag">div</span>[@class=<span class="string">'ut'</span>]/table/tbody/tr/<span class="selector-tag">td</span>[<span class="number">2</span>]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos;]/table/tbody/tr/td[2]</div></pre></td></tr></table></figure>
 </li>
 <li><p>选取 id = ‘login ‘的 div：id是唯一的；//表示可以不从根节点开始搜索，只要满足表达式即可；/表示从根结点开始搜索</p>
-<figure class="highlight autoit"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">//div[<span class="symbol">@id</span>=<span class="string">'login'</span>]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">//div[@id=&apos;login&apos;]</div></pre></td></tr></table></figure>
 </li>
 <li><p>选取 id = ‘login ‘的 元素,由于id是唯一的，所以也可以不指明div:   </p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">//</span>*[@id=<span class="string">'login'</span>]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">//*[@id=&apos;login&apos;]</div></pre></td></tr></table></figure>
 </li>
 <li><p>当满足条件的元素有多个时，只选择最后一个:   </p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/<span class="selector-tag">div</span>[@class=<span class="string">'ut'</span>]/div/<span class="selector-tag">span</span>[last()]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos;]/div/span[last()]</div></pre></td></tr></table></figure>
 </li>
 <li><p>复合谓词 and：选取具有某个子元素的父节点div:   </p>
-<figure class="highlight delphi"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/<span class="keyword">div</span>[@<span class="keyword">class</span>=<span class="string">'ut'</span> <span class="keyword">and</span> ./<span class="keyword">div</span>/span[@<span class="keyword">class</span>=<span class="string">'uu'</span>]]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos; and ./div/span[@class=&apos;uu&apos;]]</div></pre></td></tr></table></figure>
 </li>
 <li><p>函数 not：排除具有某个子元素的父节点div, 轴：following-sibling，可以定义相对于当前结点的节点集合；./：以当前结点为根搜索</p>
-<figure class="highlight delphi"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/<span class="keyword">div</span>[@<span class="keyword">class</span>=<span class="string">'ut'</span> <span class="keyword">and</span> <span class="keyword">not</span>(./<span class="keyword">div</span>/span[@<span class="keyword">class</span>=<span class="string">'uu'</span>]) <span class="keyword">and</span> following-sibling::<span class="keyword">div</span>[@<span class="keyword">class</span>=<span class="string">'mm'</span>]]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos; and not(./div/span[@class=&apos;uu&apos;]) and following-sibling::div[@class=&apos;mm&apos;]]</div></pre></td></tr></table></figure>
 </li>
 <li><p>选取 文本内容包含”hello”的 span:   </p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/<span class="keyword">div</span>/span[<span class="keyword">contains</span>(<span class="keyword">text</span>(),<span class="string">'hello'</span>)]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div/span[contains(text(),&apos;hello&apos;)]</div></pre></td></tr></table></figure>
 </li>
 <li><p>选取 文本内容以”hello”开头的 span:   </p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/<span class="keyword">div</span>/span[starts-<span class="keyword">with</span>(<span class="keyword">text</span>(),<span class="string">'hello'</span>)]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div/span[starts-with(text(),&apos;hello&apos;)]</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <p></p><h3 id="selenium">3. selenium中使用find_element_by_xpath()定位元素：</h3>  <p></p>
