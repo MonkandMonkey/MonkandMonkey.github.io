@@ -6,7 +6,7 @@
       <title><![CDATA[Metrics used in Classification]]></title>
       <url>/2018/03/24/Metrics%20used%20in%20Classification/</url>
       <content type="html"><![CDATA[<p>We will introduce common metrics used in classification problems: <em>precision, recall, f1, macro_f1, micro_f1, precision-recall curve and ROC curve </em>. Our discussion is based on <strong>binary classification</strong> problems.</p>
-<h2 id="Table-of-Prediction"><a href="#Table-of-Prediction" class="headerlink" title="Table of Prediction"></a>Table of Prediction</h2><p><img src="/images/cls_metrics/pred_table.jpg" alt="Table 1. Prediction table"></p>
+<h2 id="Table-of-Prediction"><a href="#Table-of-Prediction" class="headerlink" title="Table of Prediction"></a>Table of Prediction</h2><p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fq2uzp9bqgj30f3072gmz.jpg" alt="Table 1. Prediction table"></p>
 <p>Based on this table, we will give the definition of precision, recall and f1, f1 is defined as the <em>harmonic mean</em> of precision and recall.</p>
 <p>$ precision = \frac{TP}{TP + FP} $</p>
 <p>$ recall = \frac{TP}{TP + FN} $</p>
