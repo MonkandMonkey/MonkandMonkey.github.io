@@ -143,54 +143,72 @@
         </div>
         <!-- Post Main Content -->
         <div class="entry-content">
-          <p>This article will show you the definition and properties of <code>Expected Value</code>  $E(X)$ and <code>Variance</code> $Var(X)$. And we will show you why <code>Normal Distribution</code> $N \sim (0, 1)$  ‘s Expected Value  $ = \mu$ and its Variance $ = \sigma^2 $.</p>
+          <p>This article will show you the definition and properties of <code>Expected Value</code>  $E(X)$ and <code>Variance</code> $Var(X)$. And we will show you why <code>Normal Distribution</code> $N \sim (0, 1)$  's Expected Value  $ = \mu$ and its Variance $ = \sigma^2 $.</p>
 <p>Reference: <a href="https://ocw.mit.edu/courses/mathematics/18-05-introduction-to-probability-and-statistics-spring-2014/readings/MIT18_05S14_Reading6a.pdf" target="_blank" rel="noopener">Proof</a></p>
-<h2 id="1-Expected-Value"><a href="#1-Expected-Value" class="headerlink" title="1. Expected Value"></a>1. Expected Value</h2><p>Also called <code>mean</code> and <code>average</code>.</p>
+<h2>1. Expected Value</h2>
+<p>Also called <code>mean</code> and <code>average</code>.</p>
 <ul>
-<li>Discrete Random Variable:<br>$$E(X) = \sum_{i=1}^{n}{x_ip(x_i)}$$</li>
-<li>Continous Random Variable:<br>$$E(X) = \int_{-\infty}^{\infty}{x f(x)}dx$$<br>where $f(x)$ is the probability density function of $X$.</li>
-<li>properties:<ol>
+<li>Discrete Random Variable:
+$$E(X) = \sum_{i=1}^{n}{x_ip(x_i)}$$</li>
+<li>Continous Random Variable:
+$$E(X) = \int_{-\infty}^{\infty}{x f(x)}dx$$
+where $f(x)$ is the probability density function of $X$.</li>
+<li>properties:
+<ol>
 <li>$E(C) = C$</li>
-<li>$X$ and $Y$ are random variables on a sample space $\Omega$, then<br>$E(X + Y) = E(X) + E(Y)$</li>
-<li>If $X$ and $Y$ are independent random variables, then<br>$E(XY) = E(X)E(Y)$</li>
+<li>$X$ and $Y$ are random variables on a sample space $\Omega$, then
+$E(X + Y) = E(X) + E(Y)$</li>
+<li>If $X$ and $Y$ are independent random variables, then
+$E(XY) = E(X)E(Y)$</li>
 <li>For $Y = g(X)$, $E(Y)=E(g(x))=∫_{-∞}^{+∞}g(x)f(x)dx$</li>
 </ol>
 </li>
 </ul>
-<h2 id="2-Variance"><a href="#2-Variance" class="headerlink" title="2. Variance"></a>2. Variance</h2><p>Let $X$ be a continuous random variable with mean $\mu$. The variance of $X$ is<br>$$Var(X) = E((X - μ)^2)$$</p>
+<h2>2. Variance</h2>
+<p>Let $X$ be a continuous random variable with mean $\mu$. The variance of $X$ is
+$$Var(X) = E((X - μ)^2)$$</p>
 <ul>
-<li>properties:<ol>
+<li>properties:
+<ol>
 <li>$Var(X + Y) = Var(X) + Var(Y)$</li>
 <li>$Var(aX + b) = a^2Var(X)$</li>
 </ol>
 </li>
 </ul>
-<h2 id="3-Normal-Distribution"><a href="#3-Normal-Distribution" class="headerlink" title="3. Normal Distribution"></a>3. Normal Distribution</h2><p>As it is named, Normal Distribution, also known as (Gaussian Distribution)  is a very <code>normal</code> distribution in our daily life. For example, the student’s grades, or many random variabls in natural science obeys <strong>normal distribution</strong>.</p>
-<p><code>Central limit theorem</code> is a group of very important theorems in probability. Their core concept is:<br>The central limit theorem states that under certain (fairly common) conditions, the sum of many random variables will have an approximately normal distribution.</p>
-<p>Definition: $X∼N(μ, σ)$, whose pdf is,<br>$$f(x) = \frac{1}{σ√2π}\exp{\frac{(x - \mu)^2}{2σ^2}}$$<br>where $μ$ is its mean, $σ$ is its standard derivation.</p>
-<p>Proof 1. $E(X)=μ$<br>First let’s standardize $X$, that is, we made $Z = \frac{X - μ}{σ}$<br>$∴ X = σZ + μ$</p>
+<h2>3. Normal Distribution</h2>
+<p>As it is named, Normal Distribution, also known as (Gaussian Distribution)  is a very <code>normal</code> distribution in our daily life. For example, the student's grades, or many random variabls in natural science obeys <strong>normal distribution</strong>.</p>
+<p><code>Central limit theorem</code> is a group of very important theorems in probability. Their core concept is:
+The central limit theorem states that under certain (fairly common) conditions, the sum of many random variables will have an approximately normal distribution.</p>
+<p>Definition: $X∼N(μ, σ)$, whose pdf is,
+$$f(x) = \frac{1}{σ√2π}\exp{\frac{(x - \mu)<sup>2}{2σ</sup>2}}$$
+where $μ$ is its mean, $σ$ is its standard derivation.</p>
+<p>Proof 1. $E(X)=μ$
+First let's standardize $X$, that is, we made $Z = \frac{X - μ}{σ}$
+$∴ X = σZ + μ$</p>
 <p>$∴ E(X) = E(σZ + μ) = σE(Z) + μ $</p>
-<p>$∵ E(Z) = ∫_{-∞}^{∞}z\frac{1}{\sqrt{2\pi}}e^{-\frac{z^2}{2}}dz$</p>
-<p>$ = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty}ze^{-\frac{z^2}{2}}dz$</p>
-<p>$=  \frac{1}{\sqrt{2\pi}} e^{-\frac{z^2}{2}} \bigg|_{-\infty}^{+\infty}$</p>
-<p>$∵ e^{-\frac{z^2}{2}}$  is an even function</p>
-<p>$∴e^{-\frac{z^2}{2}} \bigg|_{-\infty}^{+\infty} = 0 $</p>
+<p>$∵ E(Z) = ∫_{-∞}<sup>{∞}z\frac{1}{\sqrt{2\pi}}e</sup>{-\frac{z^2}{2}}dz$</p>
+<p>$ = \frac{1}{\sqrt{2\pi}} \int_{-\infty}<sup>{\infty}ze</sup>{-\frac{z^2}{2}}dz$</p>
+<p>$=  \frac{1}{\sqrt{2\pi}} e<sup>{-\frac{z</sup>2}{2}} \bigg|_{-\infty}^{+\infty}$</p>
+<p>$∵ e<sup>{-\frac{z</sup>2}{2}}$  is an even function</p>
+<p>$∴e<sup>{-\frac{z</sup>2}{2}} \bigg|_{-\infty}^{+\infty} = 0 $</p>
 <p>$∴ E(Z) = 0$</p>
 <p>$∴ E(X) = σ ⋅ 0 + μ = μ$</p>
-<p>Proof 2. $Var(X)=σ^2$<br>Similarly, we standardize $X$, that is, we made $Z = \frac{X - μ}{σ}$<br>$∴ X = σZ + μ$</p>
-<p>$∴ Var(X) = Var(σZ + μ) = σ^2Var(Z) = σ^2E((Z-0)^2) = σ^2E(Z^2)$</p>
-<p>$∵ E(Z^2) = ∫_{-∞}^{+∞}z^2f(z)dz$</p>
-<p>$  = ∫_{-∞}^{+∞}z^2 \frac{1}{√{2\pi}}e^{-\frac{z^2}{2}}dz$</p>
+<p>Proof 2. $Var(X)=σ^2$
+Similarly, we standardize $X$, that is, we made $Z = \frac{X - μ}{σ}$
+$∴ X = σZ + μ$</p>
+<p>$∴ Var(X) = Var(σZ + μ) = σ^2Var(Z) = σ<sup>2E((Z-0)</sup>2) = σ<sup>2E(Z</sup>2)$</p>
+<p>$∵ E(Z^2) = ∫_{-∞}<sup>{+∞}z</sup>2f(z)dz$</p>
+<p>$  = ∫_{-∞}<sup>{+∞}z</sup>2 \frac{1}{√{2\pi}}e<sup>{-\frac{z</sup>2}{2}}dz$</p>
 <p>here we use <code>integration by parts</code> to calculate the integral:</p>
-<p>$\int uvdx = uv - \int u’vdx$</p>
-<p>Let $u = z, v’ = z\frac{1}{√{2\pi}}e^{-\frac{z^2}{2}} $,</p>
-<p>then $u’ = 1,  v = -e^{-\frac{z^2}{2}}$</p>
-<p>$∴ = \frac{1}{\sqrt{2\pi}} [z(-e^{-\frac{z^2}{2}}) \bigg|_{-∞}^{+∞} + ∫1 \cdot e ^ {-\frac{z^2}{2}}dz]$</p>
-<p>$= -\frac{1}{\sqrt{2π}}z⋅e^{-\frac{z^2}{2}}\bigg|_{-\infty}^{+∞} + \frac{1}{\sqrt{2π}}∫ e^{-\frac{z^2}{2}}dz$</p>
+<p>$\int uvdx = uv - \int u'vdx$</p>
+<p>Let $u = z, v' = z\frac{1}{√{2\pi}}e<sup>{-\frac{z</sup>2}{2}} $,</p>
+<p>then $u' = 1,  v = -e<sup>{-\frac{z</sup>2}{2}}$</p>
+<p>$ = \frac{1}{\sqrt{2\pi}} [z(-e<sup>{-\frac{z</sup>2}{2}}) \bigg|_{-∞}^{+∞} + ∫1 \cdot e ^ {-\frac{z^2}{2}}dz]$</p>
+<p>$= -\frac{1}{\sqrt{2π}}z⋅e<sup>{-\frac{z</sup>2}{2}}\bigg|_{-\infty}^{+∞} + \frac{1}{\sqrt{2π}}∫ e<sup>{-\frac{z</sup>2}{2}}dz$</p>
 <p>$= 0 + 1$</p>
 <p>for the first part, exp(x) decreases much faster than linear x, so first part is 0; for the second part, it is the pdf of Z, so its sum should be 1. (Sum of probabilities is 1)</p>
 <p>$∴ E(Z^2) = 1$</p>
-<p>$∴ Var(X) = σ^2E(Z^2) = σ^2$</p>
+<p>$∴ Var(X) = σ<sup>2E(Z</sup>2) = σ^2$</p>
 
         </div>
       </article>
