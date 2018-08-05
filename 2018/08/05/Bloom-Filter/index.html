@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="MonkandMonkey">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="Bloom Filter"/>
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="Amy"/>
+  <!--Type page-->
+  
+      <meta property="og:type" content="article" />
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>Bloom Filter - Amy</title>
+
+
+  <link rel="shortcut icon" href="/images/amy/bath.png">
+
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!----------------------------
+  https://github.com/GallenHu/hexo-theme-Daily
+
+ _____            _   _
+|  __ \          (_) | |
+| |  | |   __ _   _  | |  _   _
+| |  | |  / _` | | | | | | | | |
+| |__| | | (_| | | | | | | |_| |
+|_____/   \__,_| |_| |_|  \__, |
+                          __/ |
+                         |___/
+
+    ---------------------------><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="/images/amy/owl.jpg" alt="Amy" height="60">
+        
+      </a>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  Home
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  Archive
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  About
+                
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            Bloom Filter
+            
+          </h1>
+          <p class="posted-on">
+          2018-08-05
+          </p>
+          <div class="tags-links">
+            
+              
+                <a href="/tags/python/" rel="tag">
+                  python
+                </a>
+              
+                <a href="/tags/data struct/" rel="tag">
+                  data struct
+                </a>
+              
+            
+          </div>
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>This article will show you what is Bloom Filter <em>(BF for short)</em> and when should we use it. And a python3 implementation of Bloom Filter is shown.</p>
+<h2 id="What-is-BF"><a href="#What-is-BF" class="headerlink" title="What is BF?"></a>What is BF?</h2><p>Bloom Filter is useful when you want to check whether an element exists in a set. It’s an <strong>space-efficient probabilistic data structure</strong>, which makes the check quick and only occupies little memory especially when your set is too large to load in memory.<br>For example, you’re registering a new username, and the server has to check whether your input username is occupied. Since the username set can be very large, so a linear finding algorithm is too slow. And a binary search is also not that efficient. But BF can do it in constant time complexity.</p>
+<h2 id="How-to-build-a-BF"><a href="#How-to-build-a-BF" class="headerlink" title="How to build a BF?"></a>How to build a BF?</h2><p><img src="/images/python/bloom_filter.jpg" alt="Illustration of Bloom Filter">   </p>
+<ol>
+<li>Create BF:<br> create a bit array with size: N, and initialized with 0s.</li>
+<li><p>Add an new element to BF:<br> there are k different hash functions: h1(·), h2(·), … hk(·)<br> bit_1 = h1(x) % N<br> bit_2 = h2(x) % N<br> …<br> bit_k = hk(x) % N<br> and set bit_1, bit_2, … bit_k to 1 in the bit array.</p>
+</li>
+<li><p>Check a element exists in BF:<br>  repeat step 2: compute bit_1, … bit_k and check whether these bits are all set to 1 in bit array, if Yes then return True.</p>
+</li>
+</ol>
+<p>False Positive Error:<br>A collision may occur in BF. For example, “near” corresponds to [1,4,5] bits in BF, “going” corresponds to [2,3,5] bits in BF, when we want to check whethe “enjoy” is in BF. We compute the hashes and got [1, 2, 5], we check the BF and found these bits are all 1s, so we return True. But actually “enjoy” is not in our set. This is called <code>False Positive result</code>. e.g. A username is not in the set but BF said it is. And BF will never make False Negative error, that is, telling you an in-set username is not in the set.</p>
+<h2 id="Key-points-to-BF"><a href="#Key-points-to-BF" class="headerlink" title="Key points to BF:"></a>Key points to BF:</h2><ol>
+<li>You can lower False Positive rate by taking more space and computing more hash funcs.</li>
+<li>The hash functions need to be independent and uniformly distributed so that the collision probability won’t be high.</li>
+<li>Given the set element num $n$ and your expected FP error rate $p$, the Bloom Filter’s array size $m$ and hash functions’s num $k$ can be estimated.<br>$$m = -\frac{nlnp}{(ln2)^2}$$<br>$$k = \frac{m}{n}ln2$$</li>
+<li>Given the bf size $m$ and hash function num $k$, the FP rate can be estimated.<br>$$p = [1 - (1 - \frac{1}{m})^{kn}]^k$$</li>
+</ol>
+<h2 id="Implementation-of-Bloom-Filter"><a href="#Implementation-of-Bloom-Filter" class="headerlink" title="Implementation of Bloom Filter:"></a>Implementation of Bloom Filter:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div></pre></td><td class="code"><pre><div class="line"># -*- coding: utf-8 -*-</div><div class="line">&quot;&quot;&quot;</div><div class="line">File: bloom_filter.py</div><div class="line">Date: 2018-08-05 18:06</div><div class="line">Author: amy</div><div class="line"></div><div class="line">Bloom filter provides a highly efficient way to check whether an item exists in a set.</div><div class="line">A False Positive rate is allowed.</div><div class="line"></div><div class="line">Ref: https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/</div><div class="line">&quot;&quot;&quot;</div><div class="line">import numpy as np</div><div class="line">from bitarray import bitarray</div><div class="line">from math import ceil</div><div class="line">import mmh3</div><div class="line"></div><div class="line"></div><div class="line">class BloomFilter(object):</div><div class="line">    &quot;&quot;&quot;</div><div class="line">    Implement bloom filter.</div><div class="line">    &quot;&quot;&quot;</div><div class="line"></div><div class="line">    def __init__(self, n, fp_prob):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        Create an empty bloom filter.</div><div class="line">        Args:</div><div class="line">            n: num of the items in set</div><div class="line">            fp_prob: false positive prob in tolerance</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        self.bit_ary_size = ceil(- n * np.log(fp_prob) / (np.log(2) ** 2))</div><div class="line">        self.hash_func_num = ceil(self.bit_ary_size * 1.0 / n * np.log(2))</div><div class="line">        self.bit_ary = bitarray(self.bit_ary_size)</div><div class="line">        self.bit_ary.setall(0)</div><div class="line">        print(&quot;Bloom filter size: &#123;&#125;&quot;.format(self.bit_ary_size))</div><div class="line">        print(&quot;Hash func num: &#123;&#125;&quot;.format(self.hash_func_num))</div><div class="line"></div><div class="line">    def add(self, item):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        Add an item into set.</div><div class="line">        Args:</div><div class="line">            item: hashable object</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        for i in range(self.hash_func_num):</div><div class="line">            set_bit = mmh3.hash(item, i) % self.bit_ary_size</div><div class="line">            self.bit_ary[set_bit] = 1</div><div class="line">        print(&quot;+ &#123;&#125;&quot;.format(item))</div><div class="line"></div><div class="line">    def check(self, item):</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        Check whether item exists in set.</div><div class="line">        Args:</div><div class="line">            item: the item to check</div><div class="line"></div><div class="line">        Returns:</div><div class="line">            Boolean</div><div class="line">        &quot;&quot;&quot;</div><div class="line">        found = True</div><div class="line">        for i in range(self.hash_func_num):</div><div class="line">            set_bit = mmh3.hash(item, i) % self.bit_ary_size</div><div class="line">            if self.bit_ary[set_bit] == 0:</div><div class="line">                found = False</div><div class="line">                break</div><div class="line">        return found</div><div class="line"></div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    L = [&quot;hello&quot;, &quot;amy&quot;, &quot;world&quot;, &quot;rainy&quot;, &quot;lover&quot;, &quot;join&quot;, &quot;Go&quot;, &quot;plenty&quot;]</div><div class="line">    D = [&quot;amy&quot;, &quot;go&quot;, &quot;rainy&quot;, &quot;rain&quot;, &quot;love&quot;, &quot;Go&quot;, &quot;try&quot;, &quot;mixed&quot;]</div><div class="line">    bf = BloomFilter(len(L), 0.01)</div><div class="line"></div><div class="line">    print(&quot;\nBuilding ...&quot;)</div><div class="line">    for e in L:</div><div class="line">        bf.add(e)</div><div class="line">    print(&quot;\nChecking ...&quot;)</div><div class="line">    for e in D:</div><div class="line">        if bf.check(e):</div><div class="line">            print(&quot;[&#123;&#125;] existed!&quot;.format(e))</div></pre></td></tr></table></figure>
+<p>Output is:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">Bloom filter size: 77</div><div class="line">Hash func num: 7</div><div class="line"></div><div class="line">Building ...</div><div class="line">+ hello</div><div class="line">+ amy</div><div class="line">+ world</div><div class="line">+ rainy</div><div class="line">+ lover</div><div class="line">+ join</div><div class="line">+ Go</div><div class="line">+ plenty</div><div class="line"></div><div class="line">Checking ...</div><div class="line">[amy] existed!</div><div class="line">[rainy] existed!</div><div class="line">[Go] existed!</div></pre></td></tr></table></figure></p>
+
+        </div>
+      </article>
+    </div>
+    <!-- Comments -->
+    <div class="container">
+      
+
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+      
+        <div class="nav-next">
+          <a href="/2018/08/05/Big-or-Little-Endian/" rel="prev">Newer Posts <span class="meta-arraw meta-arraw-right"></span></a>
+        </div>
+      
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+<div class="footer-widgets">
+  <div class="row inside-wrapper">
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">Me</h1>
+        <div class="custom-widget-content">
+          
+          <ul><li>MonkandMonkey</li></ul>
+        </div>
+      </aside>
+    </div>
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">Contact</h1>
+        <div class="widget-text">
+          
+            
+              <a href="https://github.com/MonkandMonkey" class="icon icon-github" target="_blank">github</a>
+            
+              <a href="mailto:chenjing.amy@pku.edu.cn" class="icon icon-mail" target="_blank">mail</a>
+            
+          
+        </div>
+      </aside>
+    </div>
+    
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">Search</h1>
+        <div class="widget-text">
+          <form onSubmit="return appDaily.submitSearch('')">
+            <p>
+              <input type="text" placeholder="search..." id="homeSearchInput">
+            </p>
+             <!--<input type="submit" value="GO">-->
+          </form>
+        </div>
+      </aside>
+    </div> 
+  </div>
+</div>
+<!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>Amy &copy; 2018</span>
+    
+      <span class="split">|</span>
+      <span>Powered by MonkandMonkey</a></span>
+    
+  </p>
+</footer>
+
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+<script>
+  var disqus_shortname = 'monkandmonkey3';
+
+  
+  var disqus_url = 'http://localhost:4000/2018/08/05/Bloom-Filter/';
+  
+
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+
+
+</body>
+
+</html>
