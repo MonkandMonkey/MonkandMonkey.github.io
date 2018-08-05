@@ -5,7 +5,7 @@
     <entry>
       <title><![CDATA[Bloom Filter]]></title>
       <url>/2018/08/05/Bloom-Filter/</url>
-      <content type="html"><![CDATA[<p>This article will show you what is Bloom Filter <em>(BF for short)</em> and when should we use it. And a python3 implementation of Bloom Filter is shown.</p>
+      <content type="html"><![CDATA[<p>This article will show you what is Bloom Filter <em>(BF for short)</em> and when should we use it. And a python3 implementation of Bloom Filter is shown. Thanks for this <a href="https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/" target="_blank" rel="noopener">article</a> in geeksforgeeks.</p>
 <h2 id="What-is-BF"><a href="#What-is-BF" class="headerlink" title="What is BF?"></a>What is BF?</h2><p>Bloom Filter is useful when you want to check whether an element exists in a set. It’s an <strong>space-efficient probabilistic data structure</strong>, which makes the check quick and only occupies little memory especially when your set is too large to load in memory.<br>For example, you’re registering a new username, and the server has to check whether your input username is occupied. Since the username set can be very large, so a linear finding algorithm is too slow. And a binary search is also not that efficient. But BF can do it in constant time complexity.</p>
 <h2 id="How-to-build-a-BF"><a href="#How-to-build-a-BF" class="headerlink" title="How to build a BF?"></a>How to build a BF?</h2><p><img src="/images/python/bloom_filter.jpg" alt="Illustration of Bloom Filter">   </p>
 <ol>
