@@ -16,7 +16,7 @@
 
   <!--Open Graph Title-->
   
-      <meta property="og:title" content="Python中_的疑惑"/>
+      <meta property="og:title" content="Big or Little Endian"/>
   
   <!--Open Graph Description-->
   
@@ -33,7 +33,7 @@
 
   <!-- Title -->
   
-  <title>Python中_的疑惑 - Amy</title>
+  <title>Big or Little Endian - Amy</title>
 
 
   <link rel="shortcut icon" href="/images/amy/bath.png">
@@ -121,21 +121,21 @@
         <!-- Title date & tags -->
         <div class="post-header">
           <h1 class="entry-title">
-            Python中_的疑惑
+            Big or Little Endian
             
           </h1>
           <p class="posted-on">
-          2017-05-17
+          2018-08-05
           </p>
           <div class="tags-links">
             
               
-                <a href="/tags/tech/" rel="tag">
-                  tech
-                </a>
-              
                 <a href="/tags/python/" rel="tag">
                   python
+                </a>
+              
+                <a href="/tags/bit/" rel="tag">
+                  bit
                 </a>
               
             
@@ -143,10 +143,11 @@
         </div>
         <!-- Post Main Content -->
         <div class="entry-content">
-          <p>在Tensorflow tutorial：RNN教程的示例代码中，发现了”_”的使用：   </p>
-<p><img src="/images/python/useof_1.PNG" alt="tensorflow example which uses &#39;_&#39;"></p>
-<p>经过查阅，将其身世简单记录如下：<br>在Python中，变量的命名规则是：变量名必须是大小写英文、数字和<em>的组合，且不能用数字开头，所以a single </em> 是可以作为变量名的，虽然看起来怪怪的。<br><em>的一个常见用途是：充当一个占位符，有时候，某个位置必须要写一个变量，但是这个变量后面又不会用到，这时候会使用\</em>当变量名，又叫throwaway variable。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">n = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> tbh.bag.atom_set():</div><div class="line">	n += <span class="number">1</span></div></pre></td></tr></table></figure></p>
-<p>又如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">label, has_label, _ = text.partition(<span class="string">':'</span>)</div></pre></td></tr></table></figure></p>
+          <p>This article will show you what is <code>Big Endian</code> and <code>Little Endian</code> and how to check your cpu’s endian in Python3.</p>
+<h2 id="What-is-endian"><a href="#What-is-endian" class="headerlink" title="What is endian?"></a>What is endian?</h2><p>Endian is the <strong>order</strong> how your CPU store data.<br>For an short int in a 32-bit computer, it needs 2 bytes to store. So the CPU have to store it in two continuous addresses. <code>Endian</code> decides which part should be writen to memory first!<br> <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># data: 0x4e01</span></div><div class="line"><span class="comment"># 2 bytes are needed</span></div><div class="line"></div><div class="line"><span class="comment"># Big Endian (write Most Significant bit first)</span></div><div class="line">Addr           Memory</div><div class="line"><span class="number">0x0000</span>       <span class="number">0x4e</span></div><div class="line"><span class="number">0x0001</span>       <span class="number">0x01</span></div><div class="line"><span class="comment"># Little Endian (write Least Significant bit first)</span></div><div class="line">Addr           Memo01ry</div><div class="line"><span class="number">0x0000</span>       <span class="number">0x01</span></div><div class="line"><span class="number">0x0001</span>       <span class="number">0x4e</span></div></pre></td></tr></table></figure></p>
+<p> Note:<br> Most significat bit(MSB) is the most left 1 in bit array, which has the highest weight. (It must be a 1.)<br> Least significat bit(LSB) is the most right bit in bit array, which has the lowest weight. (No matter it is a 0 or 1.)</p>
+<h2 id="How-to-judge-your-cpu’s-endian"><a href="#How-to-judge-your-cpu’s-endian" class="headerlink" title="How to judge your cpu’s endian?"></a>How to judge your cpu’s endian?</h2><p> Little endian is more popular than Big endian. In python you can judge your endian in following ways.<br> <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Way 1. use sys.byteorder</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> sys</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>sys.byteorder</div><div class="line"><span class="string">'little'</span></div></pre></td></tr></table></figure></p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Way 2. use struct.pack</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> struct</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>pk = struct.pack(<span class="string">'i'</span>, <span class="number">0x12345678</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>hex(pk[<span class="number">0</span>])  <span class="comment"># pack: pack python object to binary</span></div><div class="line"><span class="string">'0x78'</span>  </div><div class="line"><span class="comment"># the lowest bytes is 0x78 so it is little endian.</span></div><div class="line"><span class="comment"># if is 0x12, then it is big endian.</span></div></pre></td></tr></table></figure>
 
         </div>
       </article>
@@ -154,23 +155,6 @@
     <!-- Comments -->
     <div class="container">
       
-<section id="comment">
-  <!-- <h1 class="title">Comments</h1> -->
-
-  
-  <div id="disqus_thread">
-    <script type="text/javascript">
-    var disqus_config = function () {
-          this.page.url = window.location.href;
-          this.page.identifier = 'post-Python中-的疑惑';
-          this.page.title = 'Python中_的疑惑';
-      };
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-  
-</section>
-
 
 
 
@@ -178,13 +162,9 @@
     <!-- Pre or Next -->
     <div class="nav-links">
       
-        <div class="nav-previous">
-          <a href="/2017/05/19/Tensorflow-Get-Started/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> Older Posts</a>
-        </div>
-      
       
         <div class="nav-next">
-          <a href="/2017/05/10/windows下mysql安装/" rel="prev">Newer Posts <span class="meta-arraw meta-arraw-right"></span></a>
+          <a href="/2018/04/30/Expected-Value-and-Variance-of-Normal-Distribution/" rel="prev">Newer Posts <span class="meta-arraw meta-arraw-right"></span></a>
         </div>
       
     </div>
@@ -256,14 +236,14 @@
   var disqus_shortname = 'monkandmonkey3';
 
   
-  var disqus_url = 'http://localhost:4000/2017/05/17/Python中-的疑惑/';
+  var disqus_url = 'http://localhost:4000/2018/08/05/Big-or-Little-Endian/';
   
 
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
