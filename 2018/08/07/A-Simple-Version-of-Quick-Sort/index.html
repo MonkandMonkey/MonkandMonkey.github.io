@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="MonkandMonkey">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="A Simple Version of Quick Sort"/>
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="Amy"/>
+  <!--Type page-->
+  
+      <meta property="og:type" content="article" />
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>A Simple Version of Quick Sort - Amy</title>
+
+
+  <link rel="shortcut icon" href="/images/amy/bath.png">
+
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!----------------------------
+  https://github.com/GallenHu/hexo-theme-Daily
+
+ _____            _   _
+|  __ \          (_) | |
+| |  | |   __ _   _  | |  _   _
+| |  | |  / _` | | | | | | | | |
+| |__| | | (_| | | | | | | |_| |
+|_____/   \__,_| |_| |_|  \__, |
+                          __/ |
+                         |___/
+
+    ---------------------------><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+
+<body>
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="/images/amy/owl.jpg" alt="Amy" height="60">
+        
+      </a>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  Home
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  Archive
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  About
+                
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            A Simple Version of Quick Sort
+            
+          </h1>
+          <p class="posted-on">
+          2018-08-07
+          </p>
+          <div class="tags-links">
+            
+              
+                <a href="/tags/python/" rel="tag">
+                  python
+                </a>
+              
+                <a href="/tags/alg/" rel="tag">
+                  alg
+                </a>
+              
+            
+          </div>
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content">
+          <p>The core idea of quick sort is choose a pivot first, then move those smaller than pivot to its left part and those larger than pivot to its right (<strong>partition</strong>). Each time we put the pivot at the correct position, so we only need to repeat this procedure to pivot’s left part and right part. This is <code>divide and conquer</code>, which breaks up a larger problem into smaller ones.</p>
+<p>My quick sort code before is very ugly and complex, because there are two while loops inside a while loop ! What’s more, I have to think it over and over again each time I use it, since I could’t memorize it. So I decided to make a cleaner version of it.  Here is my thinking share with you.</p>
+<h2 id="Pseudo-code-for-quick-sort"><a href="#Pseudo-code-for-quick-sort" class="headerlink" title="Pseudo code for quick sort"></a>Pseudo code for quick sort</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Note: stop is not included</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(arr, start, stop)</span>:</span></div><div class="line">    <span class="keyword">if</span> there <span class="keyword">is</span> only <span class="number">1</span> element to sort:</div><div class="line">        <span class="keyword">return</span></div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        pivot = choose an element <span class="comment"># low or high or randomly</span></div><div class="line">        idx = partition()  <span class="comment"># [&lt; pivot | pivot | &gt;= pivot] partition into 3 parts</span></div><div class="line">        quick_sort(left part)  </div><div class="line">        quick_sort(right part)</div><div class="line">    <span class="keyword">return</span></div></pre></td></tr></table></figure>
+<p>Let me explain it:</p>
+<ol>
+<li>If there is only 1 element to sort, nothing need to be done, just return the original arr.</li>
+<li>If ther are more than 1 elements to sort, we need to repeat the procedure below:<br>Choose an element as pivot. <code>Pivot</code> is the element which split the to sort array into 3 parts. One is the left part: elements in this part are all &lt; pivot; one is the right part: elements in this part are all &gt;= pivot; the middle part only contains 1 element — the pivot.<br>We can assure that, the pivot is at its correct position after such a procedure.<br>Now the left part and right part are not sorted yet, so we quick_sort(left part) and right part respectively.</li>
+</ol>
+<h2 id="How-to-write-partition"><a href="#How-to-write-partition" class="headerlink" title="How to write partition ?"></a>How to write partition ?</h2><p>For me, the most confusing part of the above algorithm is the partition. Recursion is easy to understand. My old version partition part is like:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># My old version of partition: Ugly and hard to understand</span></div><div class="line">low, high = start, stop - <span class="number">1</span></div><div class="line">pivot = arr[low]</div><div class="line"><span class="keyword">while</span> low &lt;= high:</div><div class="line">    <span class="keyword">while</span> low &lt;= high <span class="keyword">and</span> arr[low] &lt; pivot:</div><div class="line">        low += <span class="number">1</span></div><div class="line">    <span class="keyword">if</span> low &lt;= high <span class="keyword">and</span> arr[low] &gt; pivot:</div><div class="line">        arr[low], arr[high] = arr[high], arr[low]</div><div class="line">    <span class="keyword">while</span> high &gt;= low <span class="keyword">and</span> arr[high] &gt;= pivot:</div><div class="line">        high -= <span class="number">1</span></div><div class="line">    <span class="keyword">if</span> low &lt;= high <span class="keyword">and</span> arr[high] &lt; pivot:</div><div class="line">        arr[low], arr[high] = arr[high], arr[low]</div></pre></td></tr></table></figure></p>
+<p>So how do we make it easier to understand?<br>Let illustrate <strong>partition procedure</strong> an example below:<br><img src="/images/python/quick_sort-1.jpg" alt=""><br><img src="/images/python/quick_sort-2.jpg" alt="Illustration of Partition"><br>We can find out 3 key points:</p>
+<ol>
+<li>All swaps appears only between <em>low</em> and <em>high</em>. And <em>pivot</em> must be one of <em>low</em> and <em>high</em>. So swap makes the pivot change its position (Either <code>from low to high</code> or <code>from high to low</code>).</li>
+<li>When should we make a swap？The answer is: <code>when the low and high are unordered(or in a reversed order)</code>.</li>
+<li>So what if low and high are ordered? The answer is: <code>just move the non-pivot one step forward (low: --&gt;, high: &lt;--)</code>.<br>To remember where is pivot now, I used a variable named <code>pivot</code> to record whether it is at low or high.  Note that <code>pivot</code> only has two states: {“low”, “high”}, and swap() will trigger it to change state.</li>
+<li>When to stop? The answer is: <code>when the low and high meet together (low = high)</code>.<br>My clean version parition is shown below:<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">LOW = <span class="keyword">True</span></div><div class="line">HIGH = <span class="keyword">False</span></div><div class="line"><span class="comment"># My new version of partition: Clean and Easy to understand</span></div><div class="line">low, high = start, stop - <span class="number">1</span></div><div class="line">pivot = LOW</div><div class="line"><span class="keyword">while</span> low &lt; high:</div><div class="line">    <span class="keyword">if</span> arr[low] &gt; arr[high]:  <span class="comment"># swap when unordered</span></div><div class="line">        arr[low], arr[high] = arr[high], arr[low]</div><div class="line">        pivot = <span class="keyword">not</span> pivot</div><div class="line">    <span class="keyword">elif</span> pivot == LOW: <span class="comment"># ordered; pivot is LOW</span></div><div class="line">        high -= <span class="number">1</span></div><div class="line">    <span class="keyword">else</span>: <span class="comment"># ordered; pivot is HIGH</span></div><div class="line">        low += <span class="number">1</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Complete-Code"><a href="#Complete-Code" class="headerlink" title="Complete Code"></a>Complete Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="string">"""</span></div><div class="line">Quick Sort: Divide and Conquer</div><div class="line"></div><div class="line">choose a pivot;</div><div class="line">move all eles &lt; pivot into its left and eles &gt; pivvot into its right</div><div class="line"></div><div class="line">Time: T(N) = T(k) + T(N - k) Worst case: k == 0 O(N^2), Best case: O(NlogN)</div><div class="line">Type: in place, stable</div><div class="line">"""</div><div class="line"><span class="comment"># record the pivot is at low or high</span></div><div class="line">LOW = <span class="keyword">True</span></div><div class="line">HIGH = <span class="keyword">False</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort</span><span class="params">(arr, start, stop)</span>:</span></div><div class="line">    <span class="keyword">if</span> stop - start &lt;= <span class="number">1</span>:</div><div class="line">        <span class="keyword">return</span> arr</div><div class="line">    low, high = start, stop - <span class="number">1</span></div><div class="line">    pivot = LOW</div><div class="line">    <span class="keyword">while</span> low &lt; high:</div><div class="line">        <span class="comment"># swap when unordered</span></div><div class="line">        <span class="keyword">if</span> arr[low] &gt; arr[high]:</div><div class="line">            arr[low], arr[high] = arr[high], arr[low]</div><div class="line">            pivot = <span class="keyword">not</span> pivot</div><div class="line">        <span class="keyword">elif</span> pivot == LOW:</div><div class="line">            high -= <span class="number">1</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            low += <span class="number">1</span></div><div class="line"></div><div class="line">    quick_sort(arr, start, low)</div><div class="line">    quick_sort(arr, low + <span class="number">1</span>, stop)  <span class="comment"># pivot is already in correct pos, don't sort it!!!</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> arr</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">4</span>, <span class="number">3</span>]</div><div class="line">    <span class="comment"># arr = [3, 7, 5, 6, 0, 8, 1, 4]</span></div><div class="line">    <span class="comment"># arr = [-1, -2, -3, 1.5, 2.99999, 0.1, 78]</span></div><div class="line">    <span class="comment"># arr = [7, 6, 5, 0, 0, 4, 3]</span></div><div class="line">    <span class="comment"># arr = [9.2, 8, 7, 5, 3, 20.3, -1, 3.3, 9, 0.3, 0, 2.1, 5, 4.6, 2, 1, 1, 0, 1]</span></div><div class="line">    <span class="comment"># arr = [0, 3, 1, 0, -2]</span></div><div class="line"></div><div class="line">    print(<span class="string">"[&#123;&#125;] arr: &#123;&#125;"</span>.format(<span class="number">0</span>, arr))</div><div class="line">    arr = quick_sort(arr, <span class="number">0</span>, len(arr))</div><div class="line">    print(<span class="string">"[&#123;&#125;] arr: &#123;&#125;"</span>.format(<span class="number">1</span>, arr))</div></pre></td></tr></table></figure>
+
+        </div>
+      </article>
+    </div>
+    <!-- Comments -->
+    <div class="container">
+      
+
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+      
+        <div class="nav-next">
+          <a href="/2018/08/05/Bloom-Filter/" rel="prev">Newer Posts <span class="meta-arraw meta-arraw-right"></span></a>
+        </div>
+      
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+<div class="footer-widgets">
+  <div class="row inside-wrapper">
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">Me</h1>
+        <div class="custom-widget-content">
+          
+          <ul><li>MonkandMonkey</li></ul>
+        </div>
+      </aside>
+    </div>
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">Contact</h1>
+        <div class="widget-text">
+          
+            
+              <a href="https://github.com/MonkandMonkey" class="icon icon-github" target="_blank">github</a>
+            
+              <a href="mailto:chenjing.amy@pku.edu.cn" class="icon icon-mail" target="_blank">mail</a>
+            
+          
+        </div>
+      </aside>
+    </div>
+    
+    <div class="col-1-3">
+      <aside>
+        <h1 class="widget-title">Search</h1>
+        <div class="widget-text">
+          <form onSubmit="return appDaily.submitSearch('')">
+            <p>
+              <input type="text" placeholder="search..." id="homeSearchInput">
+            </p>
+             <!--<input type="submit" value="GO">-->
+          </form>
+        </div>
+      </aside>
+    </div> 
+  </div>
+</div>
+<!-- Footer -->
+<footer class="site-info">
+  <p>
+    <span>Amy &copy; 2018</span>
+    
+      <span class="split">|</span>
+      <span>Powered by MonkandMonkey</a></span>
+    
+  </p>
+</footer>
+
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+<script>
+  var disqus_shortname = 'monkandmonkey3';
+
+  
+  var disqus_url = 'http://localhost:4000/2018/08/07/A-Simple-Version-of-Quick-Sort/';
+  
+
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+</body>
+
+</html>
