@@ -5,7 +5,12 @@
     <entry>
       <title><![CDATA[Tensorflow template]]></title>
       <url>/2019/02/19/Tensorflow-template/</url>
-      <content type="html"><![CDATA[<p>This blog provides a useful tensorflow code template. Including following features:</p>
+      <content type="html"><![CDATA[<p>As we all know, working with tensorflow framework usually consists of 2 steps:</p>
+<ol>
+<li>Build the computational graph.</li>
+<li>Execute the graph you built.</li>
+</ol>
+<p>This blog provides a general tensorflow code template. Including following features:</p>
 <ol>
 <li>Use low-level tensorflow APIs.</li>
 <li>Use tensorflow’s Dataset.</li>
