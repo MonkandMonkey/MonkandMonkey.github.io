@@ -3,8 +3,8 @@
   
     
     <entry>
-      <title><![CDATA[Tensorflow template]]></title>
-      <url>/2019/02/19/Tensorflow-template/</url>
+      <title><![CDATA[Tensorflow Template]]></title>
+      <url>/2019/02/19/Tensorflow-Template/</url>
       <content type="html"><![CDATA[<p>As we all know, working with tensorflow framework usually consists of 2 steps:</p>
 <ol>
 <li>Build the computational graph.</li>
