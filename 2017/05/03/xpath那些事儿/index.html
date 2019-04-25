@@ -147,80 +147,60 @@
         </div>
         <!-- Post Main Content -->
         <div class="entry-content">
-          <p>今天让我们来聊聊Xpath！Xpath在web爬虫中使用的非常频繁，它能够帮助我们方便地定位到网页中的某个（些）具体元素。<br>
-本文的主要目的是记录一些xpath的常用知识，捋一捋学习的的思路。</p>
-<p><strong>提纲:</strong><br>
-<a href="#intro">1.何为Xpath?</a><br>
-<a href="#examples">2.通过例子学习：</a><br>
-<a href="#selenium">3.selenium中使用find_element_by_xpath()定位元素：</a></p>
-<p>&lt;h3 id = &quot;intro&quot;&gt;1. 何为Xpath?&lt;/h3&gt;
-Xpath，从它的姓，我们可以知道它和XML有些关系。XML指可扩展标记语言（EXtensible Markup Language）
-直观地感受一下XML语言表示出的文档的样子：<br>
-<img src="/images/spider/XML_eg.PNG" alt="XML例子">
-*&lt;p align=&quot;left&quot;&gt;图1-XML 示例&lt;/p&gt; *</p>
+          <p>今天让我们来聊聊Xpath！Xpath在web爬虫中使用的非常频繁，它能够帮助我们方便地定位到网页中的某个（些）具体元素。<br>本文的主要目的是记录一些xpath的常用知识，捋一捋学习的的思路。   </p>
+<p><strong>提纲:</strong><br><a href="#intro">1.何为Xpath?</a><br><a href="#examples">2.通过例子学习：</a><br><a href="#selenium">3.selenium中使用find_element_by_xpath()定位元素：</a></p>
+<p></p><h3 id="intro">1. 何为Xpath?</h3><br>Xpath，从它的姓，我们可以知道它和XML有些关系。XML指可扩展标记语言（EXtensible Markup Language）<br>直观地感受一下XML语言表示出的文档的样子：<br><img src="/images/spider/XML_eg.PNG" alt="XML例子"><br><em><p align="left">图1-XML 示例</p> </em>   <p></p>
 <p>可以发现：XML文档层级清晰，父节点包着子节点。当我们要定位到其中的某一个节点时，可以从某个祖先节点开始，沿途经过某些节点到达目标节点，这就构成了一条路径，许许多多这样的路径生发出来，看起来就像一棵倒置的大树，根节点在上，叶子节点在下。</p>
-<p>Xpath就是这类路径的表示方法(路径表达式)。Xpath不仅适用于XML文档，html文档它也搞得定！<br>
-&lt;h3 id = &quot;examples&quot;&gt;2. 通过例子学习： &lt;/h3&gt;</p>
+<p>Xpath就是这类路径的表示方法(路径表达式)。Xpath不仅适用于XML文档，html文档它也搞得定！   </p>
+<p></p><h3 id="examples">2. 通过例子学习： </h3>  <p></p>
 <ul>
-<li>Xpath的教程和参考手册：<a href="http://www.w3school.com.cn/xpath/xpath_syntax.asp" target="_blank" rel="noopener">W3C school--XPATH</a>里面包含了详细的语法知识和例子。</li>
+<li>Xpath的教程和参考手册：<a href="http://www.w3school.com.cn/xpath/xpath_syntax.asp" target="_blank" rel="noopener">W3C school–XPATH</a>里面包含了详细的语法知识和例子。   </li>
 <li>推荐Chrome的Xpath Helper扩展，会随当前网页自动加载，输入xpath会自动显示出定位的元素。</li>
-<li>如果想知道某个元素的xpath,可以使用chrome debugger的copy xpath功能，那里的xpath表达式简洁易懂。</li>
+<li>如果想知道某个元素的xpath,可以使用chrome debugger的copy xpath功能，那里的xpath表达式简洁易懂。   </li>
 </ul>
 <p>下面展示了一些有用的例子，以后可能会用到。</p>
 <ol>
-<li>
-<p>选取 class = 'u '的 div:<br>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos;]</div></pre></td></tr></table></figure></p>
+<li><p>选取 class = ‘u ‘的 div:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos;]</div></pre></td></tr></table></figure>
 </li>
-<li>
-<p>选取 table 元素的某个部分, 索引下标从1开始:<br>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos;]/table/tbody/tr/td[2]</div></pre></td></tr></table></figure></p>
+<li><p>选取 table 元素的某个部分, 索引下标从1开始:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos;]/table/tbody/tr/td[2]</div></pre></td></tr></table></figure>
 </li>
-<li>
-<p>选取 id = 'login '的 div：id是唯一的；//表示可以不从根节点开始搜索，只要满足表达式即可；/表示从根结点开始搜索
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">//div[@id=&apos;login&apos;]</div></pre></td></tr></table></figure></p>
+<li><p>选取 id = ‘login ‘的 div：id是唯一的；//表示可以不从根节点开始搜索，只要满足表达式即可；/表示从根结点开始搜索</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">//div[@id=&apos;login&apos;]</div></pre></td></tr></table></figure>
 </li>
-<li>
-<p>选取 id = 'login '的 元素,由于id是唯一的，所以也可以不指明div:<br>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">//*[@id=&apos;login&apos;]</div></pre></td></tr></table></figure></p>
+<li><p>选取 id = ‘login ‘的 元素,由于id是唯一的，所以也可以不指明div:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">//*[@id=&apos;login&apos;]</div></pre></td></tr></table></figure>
 </li>
-<li>
-<p>当满足条件的元素有多个时，只选择最后一个:<br>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos;]/div/span[last()]</div></pre></td></tr></table></figure></p>
+<li><p>当满足条件的元素有多个时，只选择最后一个:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos;]/div/span[last()]</div></pre></td></tr></table></figure>
 </li>
-<li>
-<p>复合谓词 and：选取具有某个子元素的父节点div:<br>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos; and ./div/span[@class=&apos;uu&apos;]]</div></pre></td></tr></table></figure></p>
+<li><p>复合谓词 and：选取具有某个子元素的父节点div:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos; and ./div/span[@class=&apos;uu&apos;]]</div></pre></td></tr></table></figure>
 </li>
-<li>
-<p>函数 not：排除具有某个子元素的父节点div, 轴：following-sibling，可以定义相对于当前结点的节点集合；./：以当前结点为根搜索
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos; and not(./div/span[@class=&apos;uu&apos;]) and following-sibling::div[@class=&apos;mm&apos;]]</div></pre></td></tr></table></figure></p>
+<li><p>函数 not：排除具有某个子元素的父节点div, 轴：following-sibling，可以定义相对于当前结点的节点集合；./：以当前结点为根搜索</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div[@class=&apos;ut&apos; and not(./div/span[@class=&apos;uu&apos;]) and following-sibling::div[@class=&apos;mm&apos;]]</div></pre></td></tr></table></figure>
 </li>
-<li>
-<p>选取 文本内容包含&quot;hello&quot;的 span:<br>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div/span[contains(text(),&apos;hello&apos;)]</div></pre></td></tr></table></figure></p>
+<li><p>选取 文本内容包含”hello”的 span:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div/span[contains(text(),&apos;hello&apos;)]</div></pre></td></tr></table></figure>
 </li>
-<li>
-<p>选取 文本内容以&quot;hello&quot;开头的 span:<br>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div/span[starts-with(text(),&apos;hello&apos;)]</div></pre></td></tr></table></figure></p>
+<li><p>选取 文本内容以”hello”开头的 span:   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/html/body/div/span[starts-with(text(),&apos;hello&apos;)]</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>&lt;h3 id = &quot;selenium&quot;&gt;3. selenium中使用find_element_by_xpath()定位元素：&lt;/h3&gt;</p>
+<p></p><h3 id="selenium">3. selenium中使用find_element_by_xpath()定位元素：</h3>  <p></p>
 <ol>
-<li>
-<p>基本用法：<br>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 获取div元素</span></div><div class="line">div_ele = driver.find_element_by_xpath(<span class="string">"/html/body/div[@class='ut']"</span>)</div><div class="line"><span class="comment"># 获取div中的文本</span></div><div class="line">div_content = div_ele.text</div></pre></td></tr></table></figure></p>
+<li><p>基本用法：   </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 获取div元素</span></div><div class="line">div_ele = driver.find_element_by_xpath(<span class="string">"/html/body/div[@class='ut']"</span>)</div><div class="line"><span class="comment"># 获取div中的文本</span></div><div class="line">div_content = div_ele.text</div></pre></td></tr></table></figure>
 </li>
-<li>
-<p>text()函数无法使用<br>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 试图获取某text()元素</span></div><div class="line">div_ele = driver.find_element_by_xpath(<span class="string">"/node/text()[2]"</span>)</div><div class="line"><span class="comment"># 注意！这样会报错，因为find_element_by_xpath()返回的必须是element类型，而不是str!</span></div></pre></td></tr></table></figure></p>
+<li><p>text()函数无法使用   </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 试图获取某text()元素</span></div><div class="line">div_ele = driver.find_element_by_xpath(<span class="string">"/node/text()[2]"</span>)</div><div class="line"><span class="comment"># 注意！这样会报错，因为find_element_by_xpath()返回的必须是element类型，而不是str!</span></div></pre></td></tr></table></figure>
 </li>
-<li>
-<p>只能选择class属性为一个的情况：
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">div_ele = driver.find_element_by_xpath(<span class="string">"/node/div[@class='u']"</span>)</div></pre></td></tr></table></figure></p>
-<p>选择具有多个class属性的元素，可以用css selector:
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">'ok good nice'</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">div_ele = driver.find_element(By.CSS_SELECTOR, <span class="string">'li.ok.good.nice'</span>)</div></pre></td></tr></table></figure></p>
+<li><p>只能选择class属性为一个的情况：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">div_ele = driver.find_element_by_xpath(<span class="string">"/node/div[@class='u']"</span>)</div></pre></td></tr></table></figure>
+<p> 选择具有多个class属性的元素，可以用css selector:</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">'ok good nice'</span>&gt;</span></div></pre></td></tr></table></figure>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">div_ele = driver.find_element(By.CSS_SELECTOR, <span class="string">'li.ok.good.nice'</span>)</div></pre></td></tr></table></figure>
 </li>
 </ol>
 
